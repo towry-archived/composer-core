@@ -9,4 +9,5 @@ npm test
 
 ### TODO
 
-- [ ] treeMapBuilder
+- [x] treeMapBuilder
+- [ ] render treeMap
