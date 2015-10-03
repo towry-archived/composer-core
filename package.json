@@ -23,7 +23,6 @@
   "engines": {
     "node": ">= 0.10.3 <=0.12"
   },
-  "jest-webpack-config": "webpack.jest.js",
   "dependencies": {
     "immutable": "^3.7.5",
     "mousetrap": "^1.5.3",
@@ -36,7 +35,6 @@
     "css-loader": "^0.18.0",
     "express": "^4.13.3",
     "jasmine-core": "^2.3.4",
-    "jest-webpack": "^0.2.1",
     "karma": "^0.13.10",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
