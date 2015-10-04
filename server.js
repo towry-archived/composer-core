@@ -6,8 +6,8 @@ var pkg = require('./package.json');
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
-  quiet: true,
-  noInfo: true,
+  quiet: false,
+  noInfo: false,
   historyApiFallback: true
 }).listen(pkg.port, 'localhost', function (err, result) {
   if (err) {

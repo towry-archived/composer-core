@@ -8,6 +8,7 @@
     "react"
   ],
   "rules": {
+    "no-extra-semi": 1,
     "no-trailing-spaces": 0,
     "prefer-const": 0,
     "no-use-before-define": [2, "nofunc"],
