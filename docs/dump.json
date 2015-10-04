@@ -1,0 +1,2642 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/BlockState.js",
+    "memberof": null,
+    "longname": "lib/BlockState.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import { Record as record, List as list } from 'immutable';\nimport blockType from './blockType';\nimport inlineType from './inlineType';\nimport objectFilter from './util/objectFilter';\n\nconst persistent = {\n  key: '',\n  type: blockType.UNSTYLED,\n  characterList: list(),\n  depth: 0,\n  text: ''\n};\n\nconst CharacterListRecord = record({\n  style: inlineType.NONE\n});\n\nconst Base = record(persistent);\n\nexport default class BlockState extends Base {\n  getKey () {\n    return this.get('key');\n  }\n\n  getType () {\n    return this.get('type');\n  }\n\n  getCharacterList () {\n    return this.get('characterList');\n  }\n\n  getDepth () {\n    return this.get('depth');\n  }\n\n  getText () {\n    return this.get('text');\n  }\n\n  static create (obj) {\n    const text = obj.text;\n    const inlineStyleRanges = obj.inlineStyleRanges || [];\n\n    const charList = list(text.split('').map(function () {\n      return new CharacterListRecord();\n    }));\n\n    obj.characterList = applyInlineStyleRangeToList(charList, inlineStyleRanges);\n    return new BlockState(objectFilter(obj, persistent));\n  }\n}\n\n/**\n * @param {array} list\n * @param {array} ranges\n * ranges is an array of object, like\n * [{offset: 2, length: 4, style: 0}]\n */\nfunction applyInlineStyleRangeToList (charList, ranges) {\n  if (!ranges.length) return charList;\n\n  return charList.withMutations(function (mutableList) {\n    ranges.forEach(function (range) {\n      for (let i = range.offset; i < (range.offset + range.length); i++) {\n        const style = mutableList.get(i).get('style') + range.style;\n        mutableList.set(i, new CharacterListRecord({style: style}));\n      }\n    });\n  });\n}\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistent",
+    "memberof": "lib/BlockState.js",
+    "longname": "lib/BlockState.js~persistent",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 2,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "CharacterListRecord",
+    "memberof": "lib/BlockState.js",
+    "longname": "lib/BlockState.js~CharacterListRecord",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 3,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Base",
+    "memberof": "lib/BlockState.js",
+    "longname": "lib/BlockState.js~Base",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BlockState",
+    "memberof": "lib/BlockState.js",
+    "longname": "lib/BlockState.js~BlockState",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/BlockState.js",
+    "importStyle": "BlockState",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getKey",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState#getKey",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getType",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState#getType",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCharacterList",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState#getCharacterList",
+    "access": null,
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getDepth",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState#getDepth",
+    "access": null,
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 9,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getText",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState#getText",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 10,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/BlockState.js~BlockState",
+    "longname": "lib/BlockState.js~BlockState.create",
+    "access": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "params": [
+      {
+        "name": "obj",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 11,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "applyInlineStyleRangeToList",
+    "memberof": "lib/BlockState.js",
+    "longname": "lib/BlockState.js~applyInlineStyleRangeToList",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 60,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "list",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ranges",
+        "description": "ranges is an array of object, like\n[{offset: 2, length: 4, style: 0}]"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 12,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/DataAdapter.js",
+    "memberof": null,
+    "longname": "lib/DataAdapter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "/**\n * Simple base DataAdapter\n */\n\nexport default class DataAdapter {\n  constructor (data = {}) {\n    this._data = data;\n  }\n\n  /**\n   * @param {object} data The data source\n   */\n  setData (data) {\n    this._data = data;\n  }\n\n  /**\n   * Must return array\n   * @return {array}\n   */\n  getBlocks () {\n    return this._data.blocks || [];\n  }\n}\n"
+  },
+  {
+    "__docId__": 13,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "DataAdapter",
+    "memberof": "lib/DataAdapter.js",
+    "longname": "lib/DataAdapter.js~DataAdapter",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/DataAdapter.js",
+    "importStyle": "DataAdapter",
+    "description": "Simple base DataAdapter",
+    "lineNumber": 5,
+    "interface": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 15,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_data",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#_data",
+    "access": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "setData",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#setData",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "The data source"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 17,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_data",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#_data",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getBlocks",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getBlocks",
+    "access": null,
+    "description": "Must return array",
+    "lineNumber": 21,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/EditorState.js",
+    "memberof": null,
+    "longname": "lib/EditorState.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import { Record as record } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport treeMapBuilder from './treeMapBuilder';\n\nconst persistent = {\n  treeMap: null,\n  blockMap: null\n};\n\nconst StateRecord = record(persistent);\n\nexport default class EditorState {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof StateRecord)) {\n      throw new Error('EditorState requires an `StateRecord` instance');\n    }\n    this._immutable = immutable;\n  }\n\n  getImmutable () {\n    return this._immutable;\n  }\n\n  toJS () {\n    return this._immutable.toJS();\n  }\n\n  toJSON () {\n    return this._immutable.toJSON();\n  }\n\n  getBlockMap () {\n    return this.getImmutable().get('blockMap');\n  }\n\n  getTreeMap () {\n    return this.getImmutable().get('treeMap');\n  }\n\n  getBlockTreeForKey (key) {\n    return this.getTreeMap().get(key);\n  }\n\n  static create (blocks) {\n    let blockMap = blockMapBuilder.createFromArray(blocks);\n    let treeMap = treeMapBuilder.createFromBlockMap(blockMap);\n\n    return new EditorState(new StateRecord({blockMap, treeMap}));\n  }\n\n  static createEmpty () {\n  }\n}\n"
+  },
+  {
+    "__docId__": 20,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistent",
+    "memberof": "lib/EditorState.js",
+    "longname": "lib/EditorState.js~persistent",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/EditorState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "StateRecord",
+    "memberof": "lib/EditorState.js",
+    "longname": "lib/EditorState.js~StateRecord",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/EditorState.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "EditorState",
+    "memberof": "lib/EditorState.js",
+    "longname": "lib/EditorState.js~EditorState",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/EditorState.js",
+    "importStyle": "EditorState",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 23,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [
+      {
+        "name": "immutable",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 24,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 25,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getImmutable",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#getImmutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 26,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJS",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#toJS",
+    "access": null,
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 27,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJSON",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#toJSON",
+    "access": null,
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getBlockMap",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#getBlockMap",
+    "access": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 29,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getTreeMap",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#getTreeMap",
+    "access": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 30,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getBlockTreeForKey",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#getBlockTreeForKey",
+    "access": null,
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 31,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState.create",
+    "access": null,
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [
+      {
+        "name": "blocks",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 32,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "createEmpty",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState.createEmpty",
+    "access": null,
+    "description": null,
+    "lineNumber": 51,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 33,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/blockDecode.js",
+    "memberof": null,
+    "longname": "lib/blockDecode.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default function blockDecode (adapter) {\n  const blocks = adapter.getBlocks();\n\n  return blocks.map(function (block) {\n    console.log(block);\n  });\n}\n"
+  },
+  {
+    "__docId__": 34,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "blockDecode",
+    "memberof": "lib/blockDecode.js",
+    "longname": "lib/blockDecode.js~blockDecode",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/blockDecode.js",
+    "importStyle": "blockDecode",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [
+      {
+        "name": "adapter",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 35,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/blockMapBuilder.js",
+    "memberof": null,
+    "longname": "lib/blockMapBuilder.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport BlockState from './BlockState';\nimport { OrderedMap as orderedMap } from 'immutable';\nimport generateKey from './generateKey';\n\n/**\n * Input:\n * Array of blocks, each block is an object.\n */\n\nfunction createFromArray (blocks) {\n  return orderedMap(blocks.map(function (block) {\n    block.key = block.key || generateKey();\n    return [block.key, BlockState.create(block)];\n  }));\n}\n\nexport default {\n  createFromArray\n};\n"
+  },
+  {
+    "__docId__": 36,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createFromArray",
+    "memberof": "lib/blockMapBuilder.js",
+    "longname": "lib/blockMapBuilder.js~createFromArray",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockMapBuilder.js",
+    "importStyle": null,
+    "description": "Input:\nArray of blocks, each block is an object.",
+    "lineNumber": 11,
+    "params": [
+      {
+        "name": "blocks",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 37,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/blockRenderer.js",
+    "memberof": null,
+    "longname": "lib/blockRenderer.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport blockType from './blockType';\nimport ContentBlock from './components/ContentBlock';\n\n/**\n * Determine which component should we use for render the\n * current block.\n *\n * @param {BlockState} block - The block has getType method\n * that return a type of blockType.\n */\nexport default function blockRenderer (block) {\n  const type = block.getType();\n\n  switch (type) {\n  case blockType.MEDIA:\n    // not supported\n    return null;\n  default:\n    return ContentBlock;\n  }\n}\n\nexport function getParentElementForBlockOfType (type) {\n  switch (type) {\n  case blockType.UNORDERED_LIST_ITEM:\n    return 'ul';\n  case blockType.ORDERED_LIST_ITEM:\n    return 'ol';\n  case blockType.CODE:\n    return 'pre';\n  default:\n    return null;\n  }\n}\n\nexport function getElementForBlockOfType (type) {\n  switch (type) {\n  case blockType.UNORDERED_LIST_ITEM:\n  case blockType.ORDERED_LIST_ITEM:\n    return 'li';\n  case blockType.HEADER_ONE:\n    return 'h1';\n  case blockType.HEADER_TWO:\n    return 'h2';\n  case blockType.BLOCKQUOTE:\n    return 'blockquote';\n  default: \n    return 'div';\n  }\n}\n"
+  },
+  {
+    "__docId__": 38,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "blockRenderer",
+    "memberof": "lib/blockRenderer.js",
+    "longname": "lib/blockRenderer.js~blockRenderer",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/blockRenderer.js",
+    "importStyle": "blockRenderer",
+    "description": "Determine which component should we use for render the\ncurrent block.",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "BlockState"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "block",
+        "description": "The block has getType method\nthat return a type of blockType."
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 39,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getParentElementForBlockOfType",
+    "memberof": "lib/blockRenderer.js",
+    "longname": "lib/blockRenderer.js~getParentElementForBlockOfType",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/blockRenderer.js",
+    "importStyle": "{getParentElementForBlockOfType}",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [
+      {
+        "name": "type",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 40,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getElementForBlockOfType",
+    "memberof": "lib/blockRenderer.js",
+    "longname": "lib/blockRenderer.js~getElementForBlockOfType",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/blockRenderer.js",
+    "importStyle": "{getElementForBlockOfType}",
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [
+      {
+        "name": "type",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 41,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/blockTree.js",
+    "memberof": null,
+    "longname": "lib/blockTree.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { List as list, Record as record } from 'immutable';\n\nconst persistentOfBlockTree = {\n  leafs: null\n};\n\nconst persistentOfLeaf = {\n  start: 0,\n  end: 0\n};\n\nconst BlockTreeRecord = record(persistentOfBlockTree);\nconst LeafRecord = record(persistentOfLeaf);\n\nexport default {\n  /**\n   * Block is a BlockState\n   */\n  create (block) {\n    if (!block.size) {\n      // return empty\n      return emptyBlockTree();\n    }\n\n    let leafs = [];\n    let leaf = {start: 0, end: -1};\n    let start = 0;\n    let previousStyle = block.getCharacterList().first().get('style');\n\n    block.getCharacterList().forEach(function (ch) {\n      if (start === block.getCharacterList().size - 1) {\n        leaf.end = start + 1;\n        leafs.push(new LeafRecord(leaf));\n      }\n\n      if (ch.get('style') !== previousStyle) {\n        leaf.end = start;\n        leafs.push(new LeafRecord(leaf));\n        leaf = {start: start, end: -1};\n        previousStyle = ch.get('style');\n      }\n      start += 1;\n    });\n\n    return list.of(new BlockTreeRecord({\n      leafs: list(leafs)\n    }));\n  }\n};\n\nfunction emptyBlockTree () {\n  return list.of(new BlockTreeRecord({\n    leafs: list.of(new LeafRecord())\n  }));\n}\n"
+  },
+  {
+    "__docId__": 42,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistentOfBlockTree",
+    "memberof": "lib/blockTree.js",
+    "longname": "lib/blockTree.js~persistentOfBlockTree",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 43,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistentOfLeaf",
+    "memberof": "lib/blockTree.js",
+    "longname": "lib/blockTree.js~persistentOfLeaf",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 44,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "BlockTreeRecord",
+    "memberof": "lib/blockTree.js",
+    "longname": "lib/blockTree.js~BlockTreeRecord",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 45,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "LeafRecord",
+    "memberof": "lib/blockTree.js",
+    "longname": "lib/blockTree.js~LeafRecord",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 46,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "emptyBlockTree",
+    "memberof": "lib/blockTree.js",
+    "longname": "lib/blockTree.js~emptyBlockTree",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/blockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/blockType.js",
+    "memberof": null,
+    "longname": "lib/blockType.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default {\n  UNSTYLED: 0,\n  PARAGRAPH: 1,\n  UNORDERED_LIST_ITEM: 2,\n  ORDERED_LIST_ITEM: 3,\n  BLOCKQUOTE: 4,\n  HEADER_ONE: 5,\n  HEADER_TWO: 6,\n  CODE: 7,\n  MEDIA: 8\n};\n"
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/components/BlockLeaf.js",
+    "memberof": null,
+    "longname": "lib/components/BlockLeaf.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport React, { Component } from 'react';\n\nexport default class BlockLeaf extends Component {\n\n  constructor (props) {\n    super(props);\n  }\n\n  render () {\n    return <span>{this.props.text}</span>;\n  }\n}\n\nBlockLeaf.propTypes = {\n  text: React.PropTypes.string\n};\n"
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BlockLeaf",
+    "memberof": "lib/components/BlockLeaf.js",
+    "longname": "lib/components/BlockLeaf.js~BlockLeaf",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/components/BlockLeaf.js",
+    "importStyle": "BlockLeaf",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 50,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/components/BlockLeaf.js~BlockLeaf",
+    "longname": "lib/components/BlockLeaf.js~BlockLeaf#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "lib/components/BlockLeaf.js~BlockLeaf",
+    "longname": "lib/components/BlockLeaf.js~BlockLeaf#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 52,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/components/Composer.js",
+    "memberof": null,
+    "longname": "lib/components/Composer.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport Editor from './Editor';\nimport ass from '../util/ass';\n\nexport default class Composer extends Component {\n  constructor (props) {\n    super(props);\n  }\n\n  render () {\n    return (\n      <div className={ass('composer')}>\n        <Editor {...this.props} />\n      </div>\n    );\n  }\n}\n\nComposer.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired\n};\n"
+  },
+  {
+    "__docId__": 53,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Composer",
+    "memberof": "lib/components/Composer.js",
+    "longname": "lib/components/Composer.js~Composer",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/components/Composer.js",
+    "importStyle": "Composer",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 54,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/components/Composer.js~Composer",
+    "longname": "lib/components/Composer.js~Composer#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "lib/components/Composer.js~Composer",
+    "longname": "lib/components/Composer.js~Composer#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/components/ContentBlock.js",
+    "memberof": null,
+    "longname": "lib/components/ContentBlock.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport React, { Component } from 'react';\nimport { getElementForBlockOfType } from '../blockRenderer';\nimport BlockLeaf from './BlockLeaf';\n\nexport default class ContentBlock extends Component {\n\n  static displayName = 'ContentBlock';\n\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const tree = this.props.tree;\n    const block = this.props.block;\n    const text = block.getText();\n    const key = block.getKey();\n\n    return tree.map(function (branch, i) {\n      const leafs = branch.get('leafs');\n\n      return leafs.map(function (leaf, j) {\n        const start = leaf.get('start');\n        const end = leaf.get('end');\n        const leafText = text.slice(start, end);\n        const inlineParentEle = 'span';\n\n        return React.createElement(inlineParentEle, {\n        }, React.createElement(BlockLeaf, {\n          text: leafText\n        }));\n      }.bind(this)).toArray();\n    }.bind(this)).toArray();\n  }\n\n  render () {\n    const block = this.props.block;\n    const elementType = getElementForBlockOfType(block.getType());\n\n    return React.createElement(elementType, {\n      'data-block': true\n    }, this._renderChild());\n  }\n}\n\nContentBlock.propTypes = {\n  block: React.PropTypes.object.isRequired,\n  tree: React.PropTypes.object.isRequired\n};\n"
+  },
+  {
+    "__docId__": 57,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ContentBlock",
+    "memberof": "lib/components/ContentBlock.js",
+    "longname": "lib/components/ContentBlock.js~ContentBlock",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/components/ContentBlock.js",
+    "importStyle": "ContentBlock",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 58,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/components/ContentBlock.js~ContentBlock",
+    "longname": "lib/components/ContentBlock.js~ContentBlock#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_renderChild",
+    "memberof": "lib/components/ContentBlock.js~ContentBlock",
+    "longname": "lib/components/ContentBlock.js~ContentBlock#_renderChild",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "lib/components/ContentBlock.js~ContentBlock",
+    "longname": "lib/components/ContentBlock.js~ContentBlock#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 61,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/components/Editor.js",
+    "memberof": null,
+    "longname": "lib/components/Editor.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport ass from '../util/ass';\nimport richTextEditorHandler from '../richTextEditorHandler';\nimport EditorContent from './EditorContent';\n\nexport default class Editor extends Component {\n  constructor (props) {\n    super(props);\n\n    // keyboard handler\n    this._handler = null; \n  }\n\n  componentDidMount () {\n    this._handler = richTextEditorHandler;\n  }\n\n  getDefaultAttrs () {\n    return {\n      contentEditable: true,\n      spellCheck: true,\n      style: {\n        outline: 'none'\n      },\n\n      onKeyDown: setHandler('onKeyDown', this)\n    };\n  }\n\n  render () {\n    return (\n      <div {...this.getDefaultAttrs()} className={ass('editor')}>\n        <EditorContent editorState={this.props.editorState} />\n      </div>\n    );\n  }\n}\n\nEditor.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired\n};\n\nfunction setHandler (name, context) {\n  return function (e) {\n    if (this._handler && this._handler[name]) {\n      const handler = this._handler[name];\n      if (typeof handler === 'function') {\n        handler.call(this, e);\n      }\n    }\n  }.bind(context || this);\n}\n"
+  },
+  {
+    "__docId__": 62,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Editor",
+    "memberof": "lib/components/Editor.js",
+    "longname": "lib/components/Editor.js~Editor",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/components/Editor.js",
+    "importStyle": "Editor",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 63,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 64,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_handler",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#_handler",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidMount",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 66,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_handler",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#_handler",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getDefaultAttrs",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#getDefaultAttrs",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "lib/components/Editor.js~Editor",
+    "longname": "lib/components/Editor.js~Editor#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "setHandler",
+    "memberof": "lib/components/Editor.js",
+    "longname": "lib/components/Editor.js~setHandler",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/components/Editor.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "context",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 70,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/components/EditorContent.js",
+    "memberof": null,
+    "longname": "lib/components/EditorContent.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport ass from '../util/ass';\nimport defaultBlockRenderer, { getParentElementForBlockOfType } from '../blockRenderer';\n\nexport default class EditorContent extends Component {\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const editorState = this.props.editorState;\n    const blockMap = editorState.getBlockMap();\n    const blockMapAsArray = blockMap.toArray();\n    const blockRenderer = this.props.blockRenderer;\n\n    let renderedBlocks = [];\n    let blockStateItem;\n    let lastParentElement = null;\n    let parentElement = null;\n    let childsOfParentElement = null;\n\n    for (let i = 0; i < blockMapAsArray.length; i++) {\n      blockStateItem = blockMapAsArray[i];\n\n      const key = blockStateItem.getKey();\n      let tree = editorState.getBlockTreeForKey(key);\n      let BlockComponent = blockRenderer(blockStateItem);\n\n      // currently, just ignore it if we do not support that \n      // block type\n      if (BlockComponent === null) {\n        continue;\n      }\n\n      let renderedBlock = <BlockComponent block={blockStateItem} key={key} {...this.props} tree={tree} />;\n\n      parentElement = getParentElementForBlockOfType(blockStateItem.getType());\n      if (parentElement !== null) {\n        if (parentElement === lastParentElement && childsOfParentElement !== null) {\n          childsOfParentElement.push(renderedBlock);\n        } else {\n          childsOfParentElement = [];\n\n          let renderedParent = React.createElement(parentElement, {\n            'key': key + '-wrap'\n          }, childsOfParentElement);\n\n          childsOfParentElement.push(renderedBlock);\n          renderedBlocks.push(renderedParent);\n\n          lastParentElement = parentElement;\n          parentElement = null;\n        }\n      } else {\n        renderedBlocks.push(renderedBlock);\n        childsOfParentElement = null;\n        lastParentElement = null;\n        parentElement = null;\n      }\n    }\n\n    return renderedBlocks;\n  }\n\n  render () {\n    return (\n      <div className={ass('editorContent')}>\n        {this._renderChild()}\n      </div>\n    );\n  }\n}\n\nEditorContent.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired,\n  blockRenderer: React.PropTypes.func\n};\n\nEditorContent.defaultProps = {\n  blockRenderer: defaultBlockRenderer\n};\n"
+  },
+  {
+    "__docId__": 71,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "EditorContent",
+    "memberof": "lib/components/EditorContent.js",
+    "longname": "lib/components/EditorContent.js~EditorContent",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/components/EditorContent.js",
+    "importStyle": "EditorContent",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 72,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/components/EditorContent.js~EditorContent",
+    "longname": "lib/components/EditorContent.js~EditorContent#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_renderChild",
+    "memberof": "lib/components/EditorContent.js~EditorContent",
+    "longname": "lib/components/EditorContent.js~EditorContent#_renderChild",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "lib/components/EditorContent.js~EditorContent",
+    "longname": "lib/components/EditorContent.js~EditorContent#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 67,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 75,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/generateKey.js",
+    "memberof": null,
+    "longname": "lib/generateKey.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nlet used = {};\nlet hasOwnProp = Object.prototype.hasOwnProperty;\n\nexport default function () {\n  let key = ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);\n  while (hasOwnProp.call(used, key)) {\n    key = ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);\n  }\n\n  used[key] = true;\n  return key;\n}\n"
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "used",
+    "memberof": "lib/generateKey.js",
+    "longname": "lib/generateKey.js~used",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/generateKey.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "hasOwnProp",
+    "memberof": "lib/generateKey.js",
+    "longname": "lib/generateKey.js~hasOwnProp",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/generateKey.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "generateKey",
+    "memberof": "lib/generateKey.js",
+    "longname": "lib/generateKey.js~generateKey",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/generateKey.js",
+    "importStyle": "generateKey",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 79,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/index.js",
+    "memberof": null,
+    "longname": "lib/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "// Copyright (c) 2015, Towry Wang (http://towry.me)\n// All rights reserved.\n// Use of this source code is governed by a MIT license that can be\n// found in the LICENSE file.\n\nimport pkg from '../package.json';\n\nconst VERSION = pkg.version;\n\nexport default {\n  VERSION\n};\n"
+  },
+  {
+    "__docId__": 80,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "VERSION",
+    "memberof": "lib/index.js",
+    "longname": "lib/index.js~VERSION",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/inlineType.js",
+    "memberof": null,
+    "longname": "lib/inlineType.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default {\n  NONE: 0,\n  BOLD: 1,\n  ITALIC: 2,\n  UNDERLINE: 4,\n  CODE: 8,\n  STRIKETHROUGH: 16,\n  SUBSCRIPT: 32,\n  SUPERSCRIPT: 64\n};\n"
+  },
+  {
+    "__docId__": 82,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/richTextEditorHandler.js",
+    "memberof": null,
+    "longname": "lib/richTextEditorHandler.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default {\n  onKeyDown (e) {\n    switch (e.which) {\n    case 13:\n      e.preventDefault();\n      console.log('enter');\n      break;\n    default:\n      break;\n    }\n  }\n};\n"
+  },
+  {
+    "__docId__": 83,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/treeMapBuilder.js",
+    "memberof": null,
+    "longname": "lib/treeMapBuilder.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { OrderedMap as orderedMap } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport blockTree from './blockTree';\n\nfunction createFromArray (blocks) {\n  let blockMap = blockMapBuilder.createFromArray(blocks);\n\n  return createFromBlockMap(blockMap);\n}\n\nfunction createFromBlockMap (blockMap) {\n  return orderedMap(blockMap.map(function (block) {\n    return blockTree.create(block);\n  }));\n}\n\nexport default {\n  createFromArray,\n  createFromBlockMap\n};\n"
+  },
+  {
+    "__docId__": 84,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createFromArray",
+    "memberof": "lib/treeMapBuilder.js",
+    "longname": "lib/treeMapBuilder.js~createFromArray",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/treeMapBuilder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "blocks",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 85,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createFromBlockMap",
+    "memberof": "lib/treeMapBuilder.js",
+    "longname": "lib/treeMapBuilder.js~createFromBlockMap",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/treeMapBuilder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "blockMap",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 86,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/util/ass.js",
+    "memberof": null,
+    "longname": "lib/util/ass.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nconst prefix = '_RcmVh';\n\nexport default function (a) {\n  return prefix + '-' + a;\n}\n\nexport function getPrefix () {\n  return prefix;\n}\n"
+  },
+  {
+    "__docId__": 87,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "prefix",
+    "memberof": "lib/util/ass.js",
+    "longname": "lib/util/ass.js~prefix",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/util/ass.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "ass",
+    "memberof": "lib/util/ass.js",
+    "longname": "lib/util/ass.js~ass",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/util/ass.js",
+    "importStyle": "ass",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [
+      {
+        "name": "a",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 89,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "getPrefix",
+    "memberof": "lib/util/ass.js",
+    "longname": "lib/util/ass.js~getPrefix",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/util/ass.js",
+    "importStyle": "{getPrefix}",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 90,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/util/emptyFunc.js",
+    "memberof": null,
+    "longname": "lib/util/emptyFunc.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default function empty () {}\n\n// do not export this explict\nempty.withReturn = function (v) {\n  return function () {\n    return v;\n  };\n};\n"
+  },
+  {
+    "__docId__": 91,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "empty",
+    "memberof": "lib/util/emptyFunc.js",
+    "longname": "lib/util/emptyFunc.js~empty",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/util/emptyFunc.js",
+    "importStyle": "empty",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 92,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "withReturn",
+    "memberof": "lib/util/emptyFunc.js",
+    "longname": "lib/util/emptyFunc.js~withReturn",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/util/emptyFunc.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [
+      {
+        "name": "v",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 93,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/util/objectFilter.js",
+    "memberof": null,
+    "longname": "lib/util/objectFilter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nexport default function (danger, defaults) {\n  let rets = {};\n\n  Object.keys(danger).map(function (key) {\n    if (key in defaults) {\n      rets[key] = danger[key];\n    }\n  });\n\n  return rets;\n}\n"
+  },
+  {
+    "__docId__": 94,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "objectFilter",
+    "memberof": "lib/util/objectFilter.js",
+    "longname": "lib/util/objectFilter.js~objectFilter",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/util/objectFilter.js",
+    "importStyle": "objectFilter",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [
+      {
+        "name": "danger",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "defaults",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 96,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 125,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 126,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 127,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 128,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 129,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 130,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 131,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 133,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 136,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 137,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 138,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 139,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 140,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 141,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 142,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 144,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 145,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 147,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 148,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 149,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 150,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]
