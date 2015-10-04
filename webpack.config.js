@@ -28,6 +28,10 @@ module.exports = {
       loader: "react-hot!babel-loader"
     }, {
       test: /\.css$/, loader: 'style!css'
-    }]
-  }
+    }],
+    preLoaders: [
+      {test: /components\/*.js$/, loader: 'eslit', exclude: /build|bower_components|node_modules/}
+    ]
+  },
+  eslint: {configFile: '.eslintrc'}
 }

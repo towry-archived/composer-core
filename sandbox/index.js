@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Composer from '../lib/Composer';
+import Composer from '../lib/components/Composer';
 import DataAdapter from '../lib/DataAdapter';
 import EditorState from '../lib/EditorState';
 

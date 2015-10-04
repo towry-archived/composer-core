@@ -41,9 +41,13 @@ module.exports = function (config) {
         colors: true,
       },
     },
+    eslint: {
+      stopOnError: false,
+      stopOnWarning: true
+    },
     exclude: [],
     preprocessors: {
-      'test/index.js': ['webpack'],
+      'test/index.js': ['webpack']
     },
     reporters: ['progress'],
     captureTimeout: 90000,
