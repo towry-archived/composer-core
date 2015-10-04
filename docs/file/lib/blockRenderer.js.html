@@ -34,12 +34,16 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html">EditorState</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockDecode">blockDecode</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockRenderer">blockRenderer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElementForBlockOfType">getElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParentElementForBlockOfType">getParentElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateKey">generateKey</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Base">Base</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockMapBuilder">blockMapBuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockTree">blockTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockType">blockType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inlineType">inlineType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-richTextEditorHandler">richTextEditorHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-treeMapBuilder">treeMapBuilder</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/BlockLeaf.js~BlockLeaf.html">BlockLeaf</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/Composer.js~Composer.html">Composer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/ContentBlock.js~ContentBlock.html">ContentBlock</a></span></span></li>
@@ -64,6 +68,7 @@ import ContentBlock from &apos;./components/ContentBlock&apos;;
  *
  * @param {BlockState} block - The block has getType method
  * that return a type of blockType.
+ * @return {null|object}
  */
 export default function blockRenderer (block) {
   const type = block.getType();
@@ -77,6 +82,13 @@ export default function blockRenderer (block) {
   }
 }
 
+/**
+ * Get the parent element type for the block.
+ * if the block&apos;s element type is `li`, then it
+ * must be wrapped by `ul` element.
+ * @param {number} type - one of `blockType`
+ * @return {null|string}
+ */
 export function getParentElementForBlockOfType (type) {
   switch (type) {
   case blockType.UNORDERED_LIST_ITEM:
@@ -90,6 +102,11 @@ export function getParentElementForBlockOfType (type) {
   }
 }
 
+/**
+ * Get the element type for the block.
+ * @param {number} type - one of `blockType`
+ * @return {string}
+ */
 export function getElementForBlockOfType (type) {
   switch (type) {
   case blockType.UNORDERED_LIST_ITEM:

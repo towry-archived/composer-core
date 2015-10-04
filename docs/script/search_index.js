@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "composer-core/lib/blockstate.js~base",
-    "variable/index.html#static-variable-Base",
-    "<span>Base</span> <span class=\"search-result-import-path\">composer-core/lib/BlockState.js</span>",
-    "variable"
-  ],
-  [
     "composer-core/lib/components/blockleaf.js~blockleaf",
     "class/lib/components/BlockLeaf.js~BlockLeaf.html",
     "<span>BlockLeaf</span> <span class=\"search-result-import-path\">composer-core/lib/components/BlockLeaf.js</span>",
@@ -60,16 +54,28 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "composer-core/lib/blockdecode.js~blockdecode",
-    "function/index.html#static-function-blockDecode",
-    "<span>blockDecode</span> <span class=\"search-result-import-path\">composer-core/lib/blockDecode.js</span>",
-    "function"
+    "composer-core/lib/blockmapbuilder.js~blockmapbuilder",
+    "variable/index.html#static-variable-blockMapBuilder",
+    "<span>blockMapBuilder</span> <span class=\"search-result-import-path\">composer-core/lib/blockMapBuilder.js</span>",
+    "variable"
   ],
   [
     "composer-core/lib/blockrenderer.js~blockrenderer",
     "function/index.html#static-function-blockRenderer",
     "<span>blockRenderer</span> <span class=\"search-result-import-path\">composer-core/lib/blockRenderer.js</span>",
     "function"
+  ],
+  [
+    "composer-core/lib/blocktree.js~blocktree",
+    "variable/index.html#static-variable-blockTree",
+    "<span>blockTree</span> <span class=\"search-result-import-path\">composer-core/lib/blockTree.js</span>",
+    "variable"
+  ],
+  [
+    "composer-core/lib/blocktype.js~blocktype",
+    "variable/index.html#static-variable-blockType",
+    "<span>blockType</span> <span class=\"search-result-import-path\">composer-core/lib/blockType.js</span>",
+    "variable"
   ],
   [
     "composer-core/lib/util/emptyfunc.js~empty",
@@ -102,10 +108,28 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "composer-core/lib/inlinetype.js~inlinetype",
+    "variable/index.html#static-variable-inlineType",
+    "<span>inlineType</span> <span class=\"search-result-import-path\">composer-core/lib/inlineType.js</span>",
+    "variable"
+  ],
+  [
     "composer-core/lib/util/objectfilter.js~objectfilter",
     "function/index.html#static-function-objectFilter",
     "<span>objectFilter</span> <span class=\"search-result-import-path\">composer-core/lib/util/objectFilter.js</span>",
     "function"
+  ],
+  [
+    "composer-core/lib/richtexteditorhandler.js~richtexteditorhandler",
+    "variable/index.html#static-variable-richTextEditorHandler",
+    "<span>richTextEditorHandler</span> <span class=\"search-result-import-path\">composer-core/lib/richTextEditorHandler.js</span>",
+    "variable"
+  ],
+  [
+    "composer-core/lib/treemapbuilder.js~treemapbuilder",
+    "variable/index.html#static-variable-treeMapBuilder",
+    "<span>treeMapBuilder</span> <span class=\"search-result-import-path\">composer-core/lib/treeMapBuilder.js</span>",
+    "variable"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -556,12 +580,6 @@ window.esdocSearchIndex = [
     "class/lib/EditorState.js~EditorState.html#static-method-createEmpty",
     "lib/EditorState.js~EditorState.createEmpty",
     "method"
-  ],
-  [
-    "lib/blockdecode.js",
-    "file/lib/blockDecode.js.html",
-    "lib/blockDecode.js",
-    "file"
   ],
   [
     "lib/blockmapbuilder.js",

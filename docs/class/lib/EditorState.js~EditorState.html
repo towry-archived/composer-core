@@ -34,12 +34,16 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html">EditorState</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockDecode">blockDecode</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockRenderer">blockRenderer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElementForBlockOfType">getElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParentElementForBlockOfType">getParentElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateKey">generateKey</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Base">Base</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockMapBuilder">blockMapBuilder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockTree">blockTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockType">blockType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inlineType">inlineType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-richTextEditorHandler">richTextEditorHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-treeMapBuilder">treeMapBuilder</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/BlockLeaf.js~BlockLeaf.html">BlockLeaf</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/Composer.js~Composer.html">Composer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/ContentBlock.js~ContentBlock.html">ContentBlock</a></span></span></li>
@@ -54,13 +58,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import EditorState from &apos;<span><a href="file/lib/EditorState.js.html#lineNumber12">composer-core/lib/EditorState.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import EditorState from &apos;<span><a href="file/lib/EditorState.js.html#lineNumber15">composer-core/lib/EditorState.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/EditorState.js.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/EditorState.js.html#lineNumber15">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -80,7 +84,8 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>The state for the whole editor.</p>
+</div>
 
   
 
@@ -107,13 +112,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html#static-method-create">create</a></span></span><span data-ice="signature">(blocks: <span>*</span>): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html#static-method-create">create</a></span></span><span data-ice="signature">(blocks: <span>array</span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description">Create an `EditorState` object.</div>
       </div>
     </td>
     <td>
@@ -138,7 +143,7 @@
       <div>
         
         
-        
+        <div data-ice="description">Create an empty `EditorState` object</div>
       </div>
     </td>
     <td>
@@ -203,7 +208,7 @@
       <div>
         
         
-        
+        <div data-ice="description">Get blockMap from immutable</div>
       </div>
     </td>
     <td>
@@ -228,7 +233,7 @@
       <div>
         
         
-        
+        <div data-ice="description">from the treeMap, get a tree by a key</div>
       </div>
     </td>
     <td>
@@ -253,7 +258,7 @@
       <div>
         
         
-        
+        <div data-ice="description">Get the immutable object</div>
       </div>
     </td>
     <td>
@@ -278,7 +283,7 @@
       <div>
         
         
-        
+        <div data-ice="description">Get treeMap from immutable</div>
       </div>
     </td>
     <td>
@@ -352,18 +357,19 @@
     
     
     
-    <span data-ice="name">create</span><span data-ice="signature">(blocks: <span>*</span>): <span>*</span></span>
+    <span data-ice="name">create</span><span data-ice="signature">(blocks: <span>array</span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Create an <code>EditorState</code> object.</p>
+</div>
 
   
 
@@ -377,7 +383,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">blocks</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span>array</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -422,14 +428,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber51">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber80">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Create an empty <code>EditorState</code> object</p>
+</div>
 
   
 
@@ -465,7 +472,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber16">source</a></span></span>
     </span>
   </h3>
 
@@ -525,14 +532,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get blockMap from immutable</p>
+</div>
 
   
 
@@ -575,14 +583,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber40">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>from the treeMap, get a tree by a key</p>
+</div>
 
   
 
@@ -641,14 +650,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get the immutable object</p>
+</div>
 
   
 
@@ -691,14 +701,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get treeMap from immutable</p>
+</div>
 
   
 
@@ -741,7 +752,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -777,7 +788,7 @@
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span>http://facebook.github.io/immutable-js</span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -791,7 +802,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/EditorState.js.html#lineNumber40">source</a></span></span>
     </span>
   </h3>
 
@@ -827,7 +838,7 @@
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span>http://facebook.github.io/immutable-js</span></span></li></ul></div>
   
 </div>
 </div>

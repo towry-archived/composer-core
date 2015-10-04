@@ -11,7 +11,7 @@ npm test
 
 ## Doc
 
-To build the doc, install `esdoc`: `npm i esdoc -g` then build the doc by run
+To build the doc, install `esdoc`: `npm i esdoc -g` then build the doc by running
 `npm run esdoc`.
 
 ## TODO

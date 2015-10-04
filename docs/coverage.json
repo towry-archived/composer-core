@@ -1,22 +1,8 @@
 {
-  "coverage": "8.33%",
-  "expectCount": 48,
-  "actualCount": 4,
+  "coverage": "61.53%",
+  "expectCount": 52,
+  "actualCount": 32,
   "files": {
-    "lib/BlockState.js": {
-      "expectCount": 8,
-      "actualCount": 0,
-      "undocumentLines": [
-        18,
-        20,
-        41,
-        29,
-        33,
-        21,
-        37,
-        25
-      ]
-    },
     "lib/components/BlockLeaf.js": {
       "expectCount": 3,
       "actualCount": 0,
@@ -25,6 +11,11 @@
         6,
         10
       ]
+    },
+    "lib/BlockState.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "lib/components/Composer.js": {
       "expectCount": 3,
@@ -73,42 +64,35 @@
     },
     "lib/EditorState.js": {
       "expectCount": 10,
-      "actualCount": 0,
+      "actualCount": 9,
       "undocumentLines": [
-        12,
-        13,
-        44,
-        51,
-        32,
-        40,
-        20,
-        36,
-        24,
-        28
+        16
       ]
     },
     "lib/util/ass.js": {
       "expectCount": 2,
-      "actualCount": 0,
-      "undocumentLines": [
-        4,
-        8
-      ]
+      "actualCount": 2,
+      "undocumentLines": []
     },
-    "lib/blockDecode.js": {
+    "lib/blockMapBuilder.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        2
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "lib/blockRenderer.js": {
       "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "lib/blockTree.js": {
+      "expectCount": 1,
       "actualCount": 1,
-      "undocumentLines": [
-        37,
-        24
-      ]
+      "undocumentLines": []
+    },
+    "lib/blockType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "lib/util/emptyFunc.js": {
       "expectCount": 1,
@@ -119,17 +103,28 @@
     },
     "lib/generateKey.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        5
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/inlineType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "lib/util/objectFilter.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        2
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/richTextEditorHandler.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/treeMapBuilder.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     }
   }
 }
