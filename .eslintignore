@@ -2,6 +2,7 @@ build/
 test/
 node_modules/
 sandbox/
+docs/
 webpack.*.js
 server.js
 karma.*.js

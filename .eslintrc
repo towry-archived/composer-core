@@ -8,6 +8,8 @@
     "react"
   ],
   "rules": {
+    "no-unused-vars": 1,
+    "no-extra-bind": 1,
     "no-extra-semi": 1,
     "no-trailing-spaces": 0,
     "prefer-const": 0,
