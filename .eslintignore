@@ -3,6 +3,7 @@ test/
 node_modules/
 sandbox/
 docs/
+gh-pages/
 webpack.*.js
 server.js
 karma.*.js
