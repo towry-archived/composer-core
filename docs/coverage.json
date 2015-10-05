@@ -1,0 +1,130 @@
+{
+  "coverage": "61.53%",
+  "expectCount": 52,
+  "actualCount": 32,
+  "files": {
+    "lib/components/BlockLeaf.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        6,
+        10
+      ]
+    },
+    "lib/BlockState.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "lib/components/Composer.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        7,
+        11
+      ]
+    },
+    "lib/components/ContentBlock.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        10,
+        37
+      ]
+    },
+    "lib/DataAdapter.js": {
+      "expectCount": 4,
+      "actualCount": 3,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "lib/components/Editor.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        15,
+        8,
+        19,
+        31
+      ]
+    },
+    "lib/components/EditorContent.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        67
+      ]
+    },
+    "lib/EditorState.js": {
+      "expectCount": 10,
+      "actualCount": 9,
+      "undocumentLines": [
+        16
+      ]
+    },
+    "lib/util/ass.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/blockMapBuilder.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/blockRenderer.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "lib/blockTree.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/blockType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/util/emptyFunc.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        2
+      ]
+    },
+    "lib/generateKey.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/inlineType.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/util/objectFilter.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/richTextEditorHandler.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "lib/treeMapBuilder.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}
