@@ -3,5 +3,7 @@
   "destination": "./docs",
   "plugins": [
     {"name": "esdoc-es7-plugin"}
-  ]
+  ],
+  "index": "./README.md",
+  "title": "Composer Core Docs"
 }

@@ -412,7 +412,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { Record as record } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport treeMapBuilder from './treeMapBuilder';\n\nconst persistent = {\n  treeMap: null,\n  blockMap: null\n};\n\nconst StateRecord = record(persistent);\n\n/**\n * The state for the whole editor.\n */\nexport default class EditorState {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof StateRecord)) {\n      throw new Error('EditorState requires an `StateRecord` instance');\n    }\n    this._immutable = immutable;\n  }\n\n  /**\n   * Get the immutable object\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJS () {\n    return this._immutable.toJS();\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJSON () {\n    return this._immutable.toJSON();\n  }\n\n  /**\n   * Get blockMap from immutable\n   */\n  getBlockMap () {\n    return this.getImmutable().get('blockMap');\n  }\n\n  /**\n   * Get treeMap from immutable\n   */\n  getTreeMap () {\n    return this.getImmutable().get('treeMap');\n  }\n\n  /**\n   * from the treeMap, get a tree by a key\n   * @key {string}\n   */\n  getBlockTreeForKey (key) {\n    return this.getTreeMap().get(key);\n  }\n\n  /**\n   * Create an `EditorState` object.\n   * @param {array} blocks\n   */\n  static create (blocks) {\n    let blockMap = blockMapBuilder.createFromArray(blocks);\n    let treeMap = treeMapBuilder.createFromBlockMap(blockMap);\n\n    return new EditorState(new StateRecord({blockMap, treeMap}));\n  }\n\n  /**\n   * Create an empty `EditorState` object\n   */\n  static createEmpty () {\n  }\n}\n"
+    "content": "import { Record as record } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport treeMapBuilder from './treeMapBuilder';\n\nconst persistent = {\n  treeMap: null,\n  blockMap: null\n};\n\nconst StateRecord = record(persistent);\n\n/**\n * The state for the whole editor.\n */\nexport default class EditorState {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof StateRecord)) {\n      throw new Error('EditorState requires an `StateRecord` instance');\n    }\n    this._immutable = immutable;\n  }\n\n  /**\n   * Get the immutable object\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJS () {\n    return this._immutable.toJS();\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJSON () {\n    return this._immutable.toJSON();\n  }\n\n  /**\n   * Get blockMap from immutable\n   */\n  getBlockMap () {\n    return this.getImmutable().get('blockMap');\n  }\n\n  /**\n   * Get treeMap from immutable\n   */\n  getTreeMap () {\n    return this.getImmutable().get('treeMap');\n  }\n\n  /**\n   * from the treeMap, get a tree by a key\n   * @param {string} key\n   */\n  getBlockTreeForKey (key) {\n    return this.getTreeMap().get(key);\n  }\n\n  /**\n   * Create an `EditorState` object.\n   * @param {array} blocks\n   */\n  static create (blocks) {\n    let blockMap = blockMapBuilder.createFromArray(blocks);\n    let treeMap = treeMapBuilder.createFromBlockMap(blockMap);\n\n    return new EditorState(new StateRecord({blockMap, treeMap}));\n  }\n\n  /**\n   * Create an empty `EditorState` object\n   */\n  static createEmpty () {\n  }\n}\n"
   },
   {
     "__docId__": 20,
@@ -624,18 +624,16 @@
     "access": null,
     "description": "from the treeMap, get a tree by a key",
     "lineNumber": 62,
-    "unknown": [
-      {
-        "tagName": "@key",
-        "tagValue": "{string}"
-      }
-    ],
     "params": [
       {
-        "name": "key",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": ""
       }
     ],
     "return": {
@@ -1774,7 +1772,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\n/**\n * object that holder the handlers\n */\nlet richTextEditorHandler = {\n  onKeyDown (e) {\n    switch (e.which) {\n    case 13:\n      e.preventDefault();\n      console.log('enter');\n      break;\n    default:\n      break;\n    }\n  }\n};\n\nexport default richTextEditorHandler;\n"
+    "content": "\n/**\n * object that hold the handlers\n */\nlet richTextEditorHandler = {\n  onKeyDown (e) {\n    switch (e.which) {\n    case 13:\n      e.preventDefault();\n      console.log('enter');\n      break;\n    default:\n      break;\n    }\n  }\n};\n\nexport default richTextEditorHandler;\n"
   },
   {
     "__docId__": 85,
@@ -1788,7 +1786,7 @@
     "export": true,
     "importPath": "composer-core/lib/richTextEditorHandler.js",
     "importStyle": "richTextEditorHandler",
-    "description": "object that holder the handlers",
+    "description": "object that hold the handlers",
     "lineNumber": 5,
     "type": {
       "types": [
