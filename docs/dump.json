@@ -4,16 +4,357 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/BlockMap.js",
+    "memberof": null,
+    "longname": "lib/BlockMap.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport BlockState from './BlockState';\nimport { OrderedMap as orderedMap } from 'immutable';\nimport generateKey from './generateKey';\n\n/**\n * BlockMap class\n */\nexport default class BlockMap {\n\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof orderedMap)) {\n      throw new Error('Please use `BlockMap.createFromArray` method');\n    }\n\n    this._immutable = immutable;\n  }\n\n  /** \n   * Get immutable for this blockMap\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  toJS () {\n    return this.getImmutable().toJS();\n  }\n\n  toJSON () {\n    return this.getImmutable().toJSON();\n  }\n\n  toArray () {\n    return this.getImmutable().toArray();\n  }\n\n  get () {\n    return this.getImmutable().get(...arguments);\n  }\n\n  getIn () {\n    return this.getImmutable().getIn(...arguments);\n  }\n\n  set () {\n    let newImmutable = this.getImmutable().set(...arguments);\n    this._immutable = newImmutable;\n  }\n\n  remove () {\n    return this.getImmutable().delete(...arguments);\n  }\n\n  /**\n   * Create from adapter\n   * @param {DataAdapter} adapter\n   */\n  static create (adapter) {\n    const entities = adapter.getEntities();\n    return new BlockMap(orderedMap(adapter.getBlocks().map(function (blockText, i) {\n      let blockObject = createBlockObject(adapter, i);\n      blockObject.key = blockObject.key || generateKey();\n      blockObject.text = blockText;\n      blockObject.entity = entities.length > i ? entities[i] : null;\n      return [blockObject.key, BlockState.create(blockObject)];\n    })));\n  }\n\n  /**\n   * Build the mapBlock from array\n   * @deprecated\n   * @param {object[]} blocks - Array of object.\n   * @return {object} `Immutable.OrderedMap` object.\n   */\n  static createFromArray (blocks) {\n    return new BlockMap(orderedMap(blocks.map(function (block) {\n      block.key = block.key || generateKey();\n      return [block.key, BlockState.create(block)];\n    })));\n  }\n}\n\nfunction createBlockObject (adapter, index) {\n  let inlineStyles = adapter.getInlineStyles();\n  let blockTypes = adapter.getBlockTypes();\n  let blockDepths = adapter.getBlockDepths();\n\n  let style = inlineStyles[index];\n  let type = blockTypes[index];\n  let depth = blockDepths[index];\n\n  return {\n    style,\n    type,\n    depth\n  };\n}\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BlockMap",
+    "memberof": "lib/BlockMap.js",
+    "longname": "lib/BlockMap.js~BlockMap",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/BlockMap.js",
+    "importStyle": "BlockMap",
+    "description": "BlockMap class",
+    "lineNumber": 9,
+    "interface": false
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [
+      {
+        "name": "immutable",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 3,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getImmutable",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#getImmutable",
+    "access": null,
+    "description": "Get immutable for this blockMap",
+    "lineNumber": 22,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJS",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#toJS",
+    "access": null,
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJSON",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#toJSON",
+    "access": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toArray",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#toArray",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "get",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#get",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 9,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getIn",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#getIn",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 10,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "set",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#set",
+    "access": null,
+    "description": null,
+    "lineNumber": 46,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 11,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 12,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "remove",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap#remove",
+    "access": null,
+    "description": null,
+    "lineNumber": 51,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 13,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap.create",
+    "access": null,
+    "description": "Create from adapter",
+    "lineNumber": 59,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "DataAdapter"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "adapter",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "createFromArray",
+    "memberof": "lib/BlockMap.js~BlockMap",
+    "longname": "lib/BlockMap.js~BlockMap.createFromArray",
+    "access": null,
+    "description": "Build the mapBlock from array",
+    "lineNumber": 76,
+    "deprecated": true,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blocks",
+        "description": "Array of object."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "`Immutable.OrderedMap` object."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 15,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "createBlockObject",
+    "memberof": "lib/BlockMap.js",
+    "longname": "lib/BlockMap.js~createBlockObject",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockMap.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 84,
+    "undocument": true,
+    "params": [
+      {
+        "name": "adapter",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "index",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/BlockState.js",
     "memberof": null,
     "longname": "lib/BlockState.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { Record as record, List as list } from 'immutable';\nimport blockType from './blockType';\nimport inlineType from './inlineType';\nimport objectFilter from './util/objectFilter';\n\n/**\n * @private\n * @constant\n */\nconst persistent = {\n  key: '',\n  type: blockType.UNSTYLED,\n  characterList: list(),\n  depth: 0,\n  text: ''\n};\n\n/**\n * @private\n */\nconst CharacterListRecord = record({\n  style: inlineType.NONE\n});\n\n/**\n * @private\n */\nconst Base = record(persistent);\n\n/**\n * This is a `Immutable.Record` constructor.\n */\nexport default class BlockState extends Base {\n  /**\n   * Get the key from the immutable.\n   */\n  getKey () {\n    return this.get('key');\n  }\n\n  /**\n   * Get the type from the immutable.\n   */\n  getType () {\n    return this.get('type');\n  }\n\n  /**\n   * Get the character list from immutable.\n   */\n  getCharacterList () {\n    return this.get('characterList');\n  }\n\n  /**\n   * Get the depth from immutable.\n   */\n  getDepth () {\n    return this.get('depth');\n  }\n\n  /**\n   * Get the text from immutable.\n   * The text is the content of the block.\n   */\n  getText () {\n    return this.get('text');\n  }\n\n  /**\n   * Create a new `BlockState`.\n   * @return {object} `BlockState` object.\n   */\n  static create (obj) {\n    const text = obj.text;\n    const inlineStyleRanges = obj.inlineStyleRanges || [];\n\n    const charList = list(text.split('').map(function () {\n      return new CharacterListRecord();\n    }));\n\n    obj.characterList = applyInlineStyleRangeToList(charList, inlineStyleRanges);\n    return new BlockState(objectFilter(obj, persistent));\n  }\n}\n\n/**\n * ranges is an array of object, like\n * [{offset: 2, length: 4, style: 0}]\n * @param {array} list\n * @param {array} ranges\n */\nfunction applyInlineStyleRangeToList (charList, ranges) {\n  if (!ranges.length) return charList;\n\n  return charList.withMutations(function (mutableList) {\n    ranges.forEach(function (range) {\n      for (let i = range.offset; i < (range.offset + range.length); i++) {\n        const style = mutableList.get(i).get('style') + range.style;\n        mutableList.set(i, new CharacterListRecord({style: style}));\n      }\n    });\n  });\n}\n"
+    "content": "import { Record as record, List as list } from 'immutable';\nimport blockType from './blockType';\nimport inlineType from './inlineType';\nimport objectFilter from './util/objectFilter';\n\n/**\n * @private\n * @constant\n */\nconst persistent = {\n  key: '',\n  type: blockType.UNSTYLED,\n  characterList: list(),\n  depth: 0,\n  text: ''\n};\n\n/**\n * @private\n */\nconst CharacterListRecord = record({\n  style: inlineType.NONE,\n  entity: null\n});\n\n/**\n * @private\n */\nconst Base = record(persistent);\n\n/**\n * This is a `Immutable.Record` constructor.\n */\nexport default class BlockState extends Base {\n  /**\n   * Get the key from the immutable.\n   */\n  getKey () {\n    return this.get('key');\n  }\n\n  /**\n   * Get the type from the immutable.\n   */\n  getType () {\n    return this.get('type');\n  }\n\n  /**\n   * Get the character list from immutable.\n   */\n  getCharacterList () {\n    return this.get('characterList');\n  }\n\n  /**\n   * Get the depth from immutable.\n   */\n  getDepth () {\n    return this.get('depth');\n  }\n\n  /**\n   * Get the text from immutable.\n   * The text is the content of the block.\n   */\n  getText () {\n    return this.get('text');\n  }\n\n  /**\n   * Create a new `BlockState`.\n   * @return {object} `BlockState` object.\n   */\n  static create (obj) {\n    const text = obj.text;\n    const inlineStyleRanges = obj.style || [];\n    const entity = obj.entity || {};\n    if (!entity.length) {\n      entity.offset = -1;\n      entity.length = -1;\n    }\n\n    const charList = list(text.split('').map(function (_, i) {\n      if (i >= entity.offset && i < (entity.offset + entity.length)) {\n        return new CharacterListRecord({entity: entity.key});\n      }\n\n      return new CharacterListRecord();\n    }));\n\n    obj.characterList = applyInlineStyleRangeToList(charList, inlineStyleRanges);\n    return new BlockState(objectFilter(obj, persistent));\n  }\n}\n\n/**\n * ranges is an array of object, like\n * [{offset: 2, length: 4, style: 0}]\n * @param {array} list\n * @param {array} ranges\n */\nfunction applyInlineStyleRangeToList (charList, ranges) {\n  if (!ranges.length) return charList;\n\n  return charList.withMutations(function (mutableList) {\n    ranges.forEach(function (range) {\n      for (let i = range.offset; i < (range.offset + range.length); i++) {\n        const style = mutableList.get(i).get('style') + range.style;\n        const entity = mutableList.get(i).get('entity');\n        mutableList.set(i, new CharacterListRecord({entity: entity, style: style}));\n      }\n    });\n  });\n}\n"
   },
   {
-    "__docId__": 1,
+    "__docId__": 17,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -39,7 +380,7 @@
     }
   },
   {
-    "__docId__": 2,
+    "__docId__": 18,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -59,7 +400,7 @@
     }
   },
   {
-    "__docId__": 3,
+    "__docId__": 19,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -71,7 +412,7 @@
     "importPath": "composer-core/lib/BlockState.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 28,
+    "lineNumber": 29,
     "type": {
       "types": [
         "*"
@@ -79,7 +420,7 @@
     }
   },
   {
-    "__docId__": 4,
+    "__docId__": 20,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -91,14 +432,14 @@
     "importPath": "composer-core/lib/BlockState.js",
     "importStyle": "BlockState",
     "description": "This is a `Immutable.Record` constructor.",
-    "lineNumber": 33,
+    "lineNumber": 34,
     "interface": false,
     "extends": [
       "Base"
     ]
   },
   {
-    "__docId__": 5,
+    "__docId__": 21,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -107,7 +448,7 @@
     "longname": "lib/BlockState.js~BlockState#getKey",
     "access": null,
     "description": "Get the key from the immutable.",
-    "lineNumber": 37,
+    "lineNumber": 38,
     "params": [],
     "return": {
       "types": [
@@ -117,7 +458,7 @@
     "generator": false
   },
   {
-    "__docId__": 6,
+    "__docId__": 22,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -126,7 +467,7 @@
     "longname": "lib/BlockState.js~BlockState#getType",
     "access": null,
     "description": "Get the type from the immutable.",
-    "lineNumber": 44,
+    "lineNumber": 45,
     "params": [],
     "return": {
       "types": [
@@ -136,7 +477,7 @@
     "generator": false
   },
   {
-    "__docId__": 7,
+    "__docId__": 23,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -145,7 +486,7 @@
     "longname": "lib/BlockState.js~BlockState#getCharacterList",
     "access": null,
     "description": "Get the character list from immutable.",
-    "lineNumber": 51,
+    "lineNumber": 52,
     "params": [],
     "return": {
       "types": [
@@ -155,7 +496,7 @@
     "generator": false
   },
   {
-    "__docId__": 8,
+    "__docId__": 24,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -164,7 +505,7 @@
     "longname": "lib/BlockState.js~BlockState#getDepth",
     "access": null,
     "description": "Get the depth from immutable.",
-    "lineNumber": 58,
+    "lineNumber": 59,
     "params": [],
     "return": {
       "types": [
@@ -174,7 +515,7 @@
     "generator": false
   },
   {
-    "__docId__": 9,
+    "__docId__": 25,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -183,7 +524,7 @@
     "longname": "lib/BlockState.js~BlockState#getText",
     "access": null,
     "description": "Get the text from immutable.\nThe text is the content of the block.",
-    "lineNumber": 66,
+    "lineNumber": 67,
     "params": [],
     "return": {
       "types": [
@@ -193,7 +534,7 @@
     "generator": false
   },
   {
-    "__docId__": 10,
+    "__docId__": 26,
     "kind": "method",
     "static": true,
     "variation": null,
@@ -202,7 +543,7 @@
     "longname": "lib/BlockState.js~BlockState.create",
     "access": null,
     "description": "Create a new `BlockState`.",
-    "lineNumber": 74,
+    "lineNumber": 75,
     "params": [
       {
         "name": "obj",
@@ -222,7 +563,7 @@
     "generator": false
   },
   {
-    "__docId__": 11,
+    "__docId__": 27,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -234,7 +575,7 @@
     "importPath": "composer-core/lib/BlockState.js",
     "importStyle": null,
     "description": "ranges is an array of object, like\n[{offset: 2, length: 4, style: 0}]",
-    "lineNumber": 93,
+    "lineNumber": 103,
     "params": [
       {
         "nullable": null,
@@ -265,7 +606,207 @@
     "generator": false
   },
   {
-    "__docId__": 12,
+    "__docId__": 28,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/BlockTree.js",
+    "memberof": null,
+    "longname": "lib/BlockTree.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { List as list, Record as record } from 'immutable';\n\n/**\n * @private\n * @constant\n */\nconst persistentOfBlockTree = {\n  leafs: null,\n  start: 0,\n  end: 0\n};\n\n/**\n * @private\n * @constant\n */\nconst persistentOfLeaf = {\n  start: 0,\n  end: 0\n};\n\n/**\n * @private\n */\nconst BlockTreeRecord = record(persistentOfBlockTree);\nconst LeafRecord = record(persistentOfLeaf);\n\n/**\n * @public\n * @property {function} create - create a blockTree object.\n */\nexport default class BlockTree {\n\n  constructor () {\n    throw new Error('Please use the static methods');\n  }\n\n  /**\n   * Block is a BlockState\n   * @return {object} `Immutable.List` object.\n   */\n  static create (block) {\n    if (!block.size) {\n      // return empty\n      return emptyBlockTree();\n    }\n\n    let leafs = [];\n    let branchs = [];\n    let leaf = {start: 0, end: -1};\n    let previousStyle = block.getCharacterList().first().get('style');\n    let previousEntity = block.getCharacterList().first().get('entity');\n    let start = 0;\n\n    // <p>hello world hel<em>lo <b>wor</b></em><b>ld</b> hello world hello world</p>\n    block.getCharacterList().forEach(function (ch, i) {\n      if (ch.get('entity') !== previousEntity) {\n        leaf.end = i;\n        leafs.push(new LeafRecord(leaf));\n        branchs.push(new BlockTreeRecord({\n          leafs: list(leafs.slice()),\n          start: start,\n          end: i\n        }));\n        previousEntity = ch.get('entity');\n        previousStyle = ch.get('style');\n        leafs = [];\n        leaf.start = i;\n        leaf.end = -1;\n        start = i;\n      }\n\n      if (leaf.start !== i && ch.get('style') !== previousStyle) {\n        leaf.end = i;\n        leafs.push(new LeafRecord(leaf));\n        leaf.start = i;\n        leaf.end = -1;\n        previousStyle = ch.get('style');\n      }\n    });\n    \n    if (leaf.start <= block.getCharacterList().size - 1) {\n      leaf.end = block.getCharacterList().size;\n      leafs.push(new LeafRecord(leaf));\n    }\n\n\n    if (leafs.length) {\n      branchs.push(new BlockTreeRecord({\n        leafs: list(leafs),\n        start: leaf.start,\n        end: block.getCharacterList().size \n      }));\n    }\n\n    return list(branchs);\n  }\n}\n\n/**\n * create a empty block tree\n */\nfunction emptyBlockTree () {\n  return list.of(new BlockTreeRecord({\n    leafs: list.of(new LeafRecord())\n  }));\n}\n"
+  },
+  {
+    "__docId__": 29,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistentOfBlockTree",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~persistentOfBlockTree",
+    "access": "private",
+    "export": false,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "unknown": [
+      {
+        "tagName": "@constant",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 30,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "persistentOfLeaf",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~persistentOfLeaf",
+    "access": "private",
+    "export": false,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 18,
+    "unknown": [
+      {
+        "tagName": "@constant",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 31,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "BlockTreeRecord",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~BlockTreeRecord",
+    "access": "private",
+    "export": false,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 26,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 32,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "LeafRecord",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~LeafRecord",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 33,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BlockTree",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~BlockTree",
+    "access": "public",
+    "export": true,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": "BlockTree",
+    "description": null,
+    "lineNumber": 33,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "create",
+        "description": "create a blockTree object."
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 34,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/BlockTree.js~BlockTree",
+    "longname": "lib/BlockTree.js~BlockTree#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 35,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/BlockTree.js~BlockTree",
+    "longname": "lib/BlockTree.js~BlockTree.create",
+    "access": null,
+    "description": "Block is a BlockState",
+    "lineNumber": 43,
+    "params": [
+      {
+        "name": "block",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "`Immutable.List` object."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 36,
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "emptyBlockTree",
+    "memberof": "lib/BlockTree.js",
+    "longname": "lib/BlockTree.js~emptyBlockTree",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/BlockTree.js",
+    "importStyle": null,
+    "description": "create a empty block tree",
+    "lineNumber": 104,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 37,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -275,10 +816,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "/**\n * Simple base DataAdapter\n */\n\nexport default class DataAdapter {\n  constructor (data = {}) {\n    this._data = data;\n  }\n\n  /**\n   * @param {object} data The data source\n   */\n  setData (data) {\n    this._data = data;\n  }\n\n  /**\n   * Must return array\n   * @return {array}\n   */\n  getBlocks () {\n    return this._data.blocks || [];\n  }\n}\n"
+    "content": "/**\n * Simple base DataAdapter\n */\n\nexport default class DataAdapter {\n  constructor (data = {}) {\n    this._data = data;\n  }\n\n  /**\n   * @param {object} data The data source\n   */\n  setData (data) {\n    this._data = data;\n  }\n\n  /**\n   * Must return array\n   * @return {array}\n   */\n  getBlocks () {\n    return this._data.blocks || [];\n  }\n\n  /**\n   * @return {array}\n   */\n  getBlockTypes () {\n    return this._data.block_types || [];\n  }\n\n  /**\n   * @return {array}\n   */\n  getBlockDepths () {\n    return this._data.block_depths || [];\n  }\n\n  /**\n   * @return {array}\n   */\n  getInlineStyles () {\n    return this._data.inline_styles || [];\n  }\n\n  /**\n   * @return {array}\n   */\n  getEntities () {\n    return this._data.entities || [];\n  }\n\n  /**\n   * @return {object}\n   */\n  getEntityMap () {\n    return this._data.entity_map;\n  }\n}\n"
   },
   {
-    "__docId__": 13,
+    "__docId__": 38,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -294,7 +835,7 @@
     "interface": false
   },
   {
-    "__docId__": 14,
+    "__docId__": 39,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -319,7 +860,7 @@
     "generator": false
   },
   {
-    "__docId__": 15,
+    "__docId__": 40,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -337,7 +878,7 @@
     }
   },
   {
-    "__docId__": 16,
+    "__docId__": 41,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -362,7 +903,7 @@
     "generator": false
   },
   {
-    "__docId__": 17,
+    "__docId__": 42,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -380,7 +921,7 @@
     }
   },
   {
-    "__docId__": 18,
+    "__docId__": 43,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -402,7 +943,117 @@
     "generator": false
   },
   {
-    "__docId__": 19,
+    "__docId__": 44,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getBlockTypes",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getBlockTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 28,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getBlockDepths",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getBlockDepths",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getInlineStyles",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getInlineStyles",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getEntities",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getEntities",
+    "access": null,
+    "description": null,
+    "lineNumber": 49,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getEntityMap",
+    "memberof": "lib/DataAdapter.js~DataAdapter",
+    "longname": "lib/DataAdapter.js~DataAdapter#getEntityMap",
+    "access": null,
+    "description": null,
+    "lineNumber": 56,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 49,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -412,10 +1063,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import { Record as record } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport treeMapBuilder from './treeMapBuilder';\n\nconst persistent = {\n  treeMap: null,\n  blockMap: null\n};\n\nconst StateRecord = record(persistent);\n\n/**\n * The state for the whole editor.\n */\nexport default class EditorState {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof StateRecord)) {\n      throw new Error('EditorState requires an `StateRecord` instance');\n    }\n    this._immutable = immutable;\n  }\n\n  /**\n   * Get the immutable object\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJS () {\n    return this._immutable.toJS();\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJSON () {\n    return this._immutable.toJSON();\n  }\n\n  /**\n   * Get blockMap from immutable\n   */\n  getBlockMap () {\n    return this.getImmutable().get('blockMap');\n  }\n\n  /**\n   * Get treeMap from immutable\n   */\n  getTreeMap () {\n    return this.getImmutable().get('treeMap');\n  }\n\n  /**\n   * from the treeMap, get a tree by a key\n   * @param {string} key\n   */\n  getBlockTreeForKey (key) {\n    return this.getTreeMap().get(key);\n  }\n\n  /**\n   * Create an `EditorState` object.\n   * @param {array} blocks\n   */\n  static create (blocks) {\n    let blockMap = blockMapBuilder.createFromArray(blocks);\n    let treeMap = treeMapBuilder.createFromBlockMap(blockMap);\n\n    return new EditorState(new StateRecord({blockMap, treeMap}));\n  }\n\n  /**\n   * Create an empty `EditorState` object\n   */\n  static createEmpty () {\n  }\n}\n"
+    "content": "import { Record as record } from 'immutable';\nimport BlockMap from './BlockMap';\nimport TreeMap from './TreeMap';\nimport EntityMap from './EntityMap';\n\nconst persistent = {\n  treeMap: null,\n  blockMap: null,\n  entityMap: null\n};\n\nconst StateRecord = record(persistent);\n\n/**\n * The state for the whole editor.\n */\nexport default class EditorState {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof StateRecord)) {\n      throw new Error('EditorState requires an `StateRecord` instance');\n    }\n    this._immutable = immutable;\n  }\n\n  /**\n   * Get the immutable object\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJS () {\n    return this._immutable.toJS();\n  }\n\n  /**\n   * @see {@link http://facebook.github.io/immutable-js}\n   */\n  toJSON () {\n    return this._immutable.toJSON();\n  }\n\n  /**\n   * Get blockMap from immutable\n   */\n  getBlockMap () {\n    return this.getImmutable().get('blockMap');\n  }\n\n  /**\n   * Get treeMap from immutable\n   */\n  getTreeMap () {\n    return this.getImmutable().get('treeMap');\n  }\n\n  /**\n   * Get entityMap from immutable\n   */\n  getEntityMap () {\n    return this.getImmutable().get('entityMap');\n  }\n\n  /**\n   * from the treeMap, get a tree by a key.\n   * @param {string} key\n   */\n  getBlockTreeForKey (key) {\n    return this.getTreeMap().get(key);\n  }\n\n  /**\n   * from the entityMap, get a entity by a key.\n   * @param {string} key\n   */\n  getEntityForKey (key) {\n    return this.getEntityMap().get(key);\n  }\n\n  /**\n   * Create an `EditorState` object.\n   * @param {DataAdater} adapter\n   */\n  static create (adapter) {\n    let blockMap = BlockMap.create(adapter);\n    let treeMap = TreeMap.createFromBlockMap(blockMap);\n    let entityMap = EntityMap.create(adapter);\n\n    return new EditorState(new StateRecord({blockMap, treeMap, entityMap}));\n  }\n\n  /**\n   * Create an empty `EditorState` object\n   */\n  static createEmpty () {\n  }\n}\n"
   },
   {
-    "__docId__": 20,
+    "__docId__": 50,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -427,7 +1078,7 @@
     "importPath": "composer-core/lib/EditorState.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 5,
+    "lineNumber": 6,
     "undocument": true,
     "type": {
       "types": [
@@ -436,7 +1087,7 @@
     }
   },
   {
-    "__docId__": 21,
+    "__docId__": 51,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -448,7 +1099,7 @@
     "importPath": "composer-core/lib/EditorState.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -457,7 +1108,7 @@
     }
   },
   {
-    "__docId__": 22,
+    "__docId__": 52,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -469,11 +1120,11 @@
     "importPath": "composer-core/lib/EditorState.js",
     "importStyle": "EditorState",
     "description": "The state for the whole editor.",
-    "lineNumber": 15,
+    "lineNumber": 17,
     "interface": false
   },
   {
-    "__docId__": 23,
+    "__docId__": 53,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -482,7 +1133,7 @@
     "longname": "lib/EditorState.js~EditorState#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 18,
     "undocument": true,
     "params": [
       {
@@ -495,7 +1146,7 @@
     "generator": false
   },
   {
-    "__docId__": 24,
+    "__docId__": 54,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -504,7 +1155,7 @@
     "longname": "lib/EditorState.js~EditorState#_immutable",
     "access": null,
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 22,
     "undocument": true,
     "type": {
       "types": [
@@ -513,7 +1164,7 @@
     }
   },
   {
-    "__docId__": 25,
+    "__docId__": 55,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -522,7 +1173,7 @@
     "longname": "lib/EditorState.js~EditorState#getImmutable",
     "access": null,
     "description": "Get the immutable object",
-    "lineNumber": 26,
+    "lineNumber": 28,
     "params": [],
     "return": {
       "types": [
@@ -532,7 +1183,7 @@
     "generator": false
   },
   {
-    "__docId__": 26,
+    "__docId__": 56,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -544,7 +1195,7 @@
     "see": [
       "{@link http://facebook.github.io/immutable-js}"
     ],
-    "lineNumber": 33,
+    "lineNumber": 35,
     "params": [],
     "return": {
       "types": [
@@ -554,7 +1205,7 @@
     "generator": false
   },
   {
-    "__docId__": 27,
+    "__docId__": 57,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -566,7 +1217,7 @@
     "see": [
       "{@link http://facebook.github.io/immutable-js}"
     ],
-    "lineNumber": 40,
+    "lineNumber": 42,
     "params": [],
     "return": {
       "types": [
@@ -576,7 +1227,7 @@
     "generator": false
   },
   {
-    "__docId__": 28,
+    "__docId__": 58,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -585,7 +1236,7 @@
     "longname": "lib/EditorState.js~EditorState#getBlockMap",
     "access": null,
     "description": "Get blockMap from immutable",
-    "lineNumber": 47,
+    "lineNumber": 49,
     "params": [],
     "return": {
       "types": [
@@ -595,7 +1246,7 @@
     "generator": false
   },
   {
-    "__docId__": 29,
+    "__docId__": 59,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -604,7 +1255,7 @@
     "longname": "lib/EditorState.js~EditorState#getTreeMap",
     "access": null,
     "description": "Get treeMap from immutable",
-    "lineNumber": 54,
+    "lineNumber": 56,
     "params": [],
     "return": {
       "types": [
@@ -614,7 +1265,26 @@
     "generator": false
   },
   {
-    "__docId__": 30,
+    "__docId__": 60,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getEntityMap",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState#getEntityMap",
+    "access": null,
+    "description": "Get entityMap from immutable",
+    "lineNumber": 63,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 61,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -622,8 +1292,8 @@
     "memberof": "lib/EditorState.js~EditorState",
     "longname": "lib/EditorState.js~EditorState#getBlockTreeForKey",
     "access": null,
-    "description": "from the treeMap, get a tree by a key",
-    "lineNumber": 62,
+    "description": "from the treeMap, get a tree by a key.",
+    "lineNumber": 71,
     "params": [
       {
         "nullable": null,
@@ -644,25 +1314,25 @@
     "generator": false
   },
   {
-    "__docId__": 31,
+    "__docId__": 62,
     "kind": "method",
-    "static": true,
+    "static": false,
     "variation": null,
-    "name": "create",
+    "name": "getEntityForKey",
     "memberof": "lib/EditorState.js~EditorState",
-    "longname": "lib/EditorState.js~EditorState.create",
+    "longname": "lib/EditorState.js~EditorState#getEntityForKey",
     "access": null,
-    "description": "Create an `EditorState` object.",
-    "lineNumber": 70,
+    "description": "from the entityMap, get a entity by a key.",
+    "lineNumber": 79,
     "params": [
       {
         "nullable": null,
         "types": [
-          "array"
+          "string"
         ],
         "spread": false,
         "optional": false,
-        "name": "blocks",
+        "name": "key",
         "description": ""
       }
     ],
@@ -674,7 +1344,37 @@
     "generator": false
   },
   {
-    "__docId__": 32,
+    "__docId__": 63,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/EditorState.js~EditorState",
+    "longname": "lib/EditorState.js~EditorState.create",
+    "access": null,
+    "description": "Create an `EditorState` object.",
+    "lineNumber": 87,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "DataAdater"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "adapter",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 64,
     "kind": "method",
     "static": true,
     "variation": null,
@@ -683,73 +1383,38 @@
     "longname": "lib/EditorState.js~EditorState.createEmpty",
     "access": null,
     "description": "Create an empty `EditorState` object",
-    "lineNumber": 80,
+    "lineNumber": 98,
     "params": [],
     "generator": false
   },
   {
-    "__docId__": 33,
+    "__docId__": 65,
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/blockMapBuilder.js",
+    "name": "lib/Entity.js",
     "memberof": null,
-    "longname": "lib/blockMapBuilder.js",
+    "longname": "lib/Entity.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\nimport BlockState from './BlockState';\nimport { OrderedMap as orderedMap } from 'immutable';\nimport generateKey from './generateKey';\n\n/**\n * Build the mapBlock from array\n * @public\n * @param {object[]} blocks - Array of object.\n * @return {object} `Immutable.OrderedMap` object.\n */\nfunction createFromArray (blocks) {\n  return orderedMap(blocks.map(function (block) {\n    block.key = block.key || generateKey();\n    return [block.key, BlockState.create(block)];\n  }));\n}\n\n/**\n * module, see source.\n */\nconst blockMapBuilder = {\n  createFromArray\n};\n\nexport default blockMapBuilder;\n"
+    "content": "\nimport { Record as record } from 'immutable';\nimport entityType from './entityType';\n\nconst persistent = {\n  // the type of this entity, link or something else.\n  type: entityType.NONE,\n\n  // the data for this entity.\n  data: null\n};\n\nconst RecordOfEntity = record(persistent);\n\nexport default class Entity extends RecordOfEntity {\n  constructor () {\n    super(...arguments);\n  }\n\n  /**\n   * Get the data from this entity\n   * @return {EntityData}\n   */\n  getData () {\n    return this.get('data');\n  }\n\n  /**\n   * Get the type of this entity\n   * @return {number} One of entityType\n   */\n  getType () {\n    return this.get('type');\n  }\n}\n"
   },
   {
-    "__docId__": 34,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "createFromArray",
-    "memberof": "lib/blockMapBuilder.js",
-    "longname": "lib/blockMapBuilder.js~createFromArray",
-    "access": "public",
-    "export": false,
-    "importPath": "composer-core/lib/blockMapBuilder.js",
-    "importStyle": null,
-    "description": "Build the mapBlock from array",
-    "lineNumber": 12,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object[]"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "blocks",
-        "description": "Array of object."
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "object"
-      ],
-      "spread": false,
-      "description": "`Immutable.OrderedMap` object."
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 35,
+    "__docId__": 66,
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "blockMapBuilder",
-    "memberof": "lib/blockMapBuilder.js",
-    "longname": "lib/blockMapBuilder.js~blockMapBuilder",
+    "name": "persistent",
+    "memberof": "lib/Entity.js",
+    "longname": "lib/Entity.js~persistent",
     "access": null,
-    "export": true,
-    "importPath": "composer-core/lib/blockMapBuilder.js",
-    "importStyle": "blockMapBuilder",
-    "description": "module, see source.",
-    "lineNumber": 22,
+    "export": false,
+    "importPath": "composer-core/lib/Entity.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
     "type": {
       "types": [
         "*"
@@ -757,7 +1422,715 @@
     }
   },
   {
-    "__docId__": 36,
+    "__docId__": 67,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "RecordOfEntity",
+    "memberof": "lib/Entity.js",
+    "longname": "lib/Entity.js~RecordOfEntity",
+    "access": null,
+    "export": false,
+    "importPath": "composer-core/lib/Entity.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Entity",
+    "memberof": "lib/Entity.js",
+    "longname": "lib/Entity.js~Entity",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/Entity.js",
+    "importStyle": "Entity",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "RecordOfEntity"
+    ]
+  },
+  {
+    "__docId__": 69,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/Entity.js~Entity",
+    "longname": "lib/Entity.js~Entity#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getData",
+    "memberof": "lib/Entity.js~Entity",
+    "longname": "lib/Entity.js~Entity#getData",
+    "access": null,
+    "description": "Get the data from this entity",
+    "lineNumber": 24,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "EntityData"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getType",
+    "memberof": "lib/Entity.js~Entity",
+    "longname": "lib/Entity.js~Entity#getType",
+    "access": null,
+    "description": "Get the type of this entity",
+    "lineNumber": 32,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "One of entityType"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 72,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/EntityData.js",
+    "memberof": null,
+    "longname": "lib/EntityData.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { Map } from 'immutable';\n\nexport default class EntityData extends Map {\n  constructor () {\n    super(...arguments);\n  }\n}\n"
+  },
+  {
+    "__docId__": 73,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "EntityData",
+    "memberof": "lib/EntityData.js",
+    "longname": "lib/EntityData.js~EntityData",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/EntityData.js",
+    "importStyle": "EntityData",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "immutable~Map"
+    ]
+  },
+  {
+    "__docId__": 74,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/EntityData.js~EntityData",
+    "longname": "lib/EntityData.js~EntityData#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 75,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/EntityMap.js",
+    "memberof": null,
+    "longname": "lib/EntityMap.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { OrderedMap as orderedMap } from 'immutable';\n\nexport default class EntityMap {\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof orderedMap)) {\n      throw new Error('Please use the static methods');\n    }\n\n    this._immutable = immutable;\n  }\n\n  toJS () {\n    return this.getImmutable().toJS();\n  }\n\n  toJSON () {\n    return this.getImmutable().toJSON();\n  }\n\n  toArray () {\n    return this.getImmutable().toArray();\n  }\n\n  getImmutable () {\n    return this.getImmutable();\n  }\n\n  get () {\n    return this.getImmutable().get(...arguments);\n  }\n\n  getIn () {\n    return this.getImmutable().getIn(...arguments);\n  }\n\n  set () {\n    let newImmutable = this.getImmutable().set(...arguments);\n    this._immutable = newImmutable;\n  }\n\n  remove () {\n    return this.getImmutable().delete(...arguments);\n  }\n\n  static create () {\n\n  }\n}\n"
+  },
+  {
+    "__docId__": 76,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "EntityMap",
+    "memberof": "lib/EntityMap.js",
+    "longname": "lib/EntityMap.js~EntityMap",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/EntityMap.js",
+    "importStyle": "EntityMap",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 77,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [
+      {
+        "name": "immutable",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJS",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#toJS",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJSON",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#toJSON",
+    "access": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toArray",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#toArray",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getImmutable",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#getImmutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "get",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#get",
+    "access": null,
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getIn",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#getIn",
+    "access": null,
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "set",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#set",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 86,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "remove",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap#remove",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/EntityMap.js~EntityMap",
+    "longname": "lib/EntityMap.js~EntityMap.create",
+    "access": null,
+    "description": null,
+    "lineNumber": 46,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 89,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/TreeMap.js",
+    "memberof": null,
+    "longname": "lib/TreeMap.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\nimport { OrderedMap as orderedMap } from 'immutable';\nimport BlockMap from './BlockMap';\nimport BlockTree from './BlockTree';\n\nexport default class TreeMap {\n\n  constructor (immutable) {\n    if (!immutable || !(immutable instanceof orderedMap)) {\n      throw new Error('Please use the static methods');\n    }\n\n    this._immutable = immutable;\n  }\n\n  /** \n   * Get immutable for this treeMap\n   */\n  getImmutable () {\n    return this._immutable;\n  }\n\n  toJS () {\n    return this.getImmutable().toJS();\n  }\n\n  toJSON () {\n    return this.getImmutable().toJSON();\n  }\n\n  toArray () {\n    return this.getImmutable().toArray();\n  }\n\n  get () {\n    return this.getImmutable().get(...arguments);\n  }\n\n  getIn () {\n    return this.getImmutable().getIn(...arguments);\n  }\n\n  set () {\n    let newImmutable = this.getImmutable().set(...arguments);\n    this._immutable = newImmutable;\n  }\n\n  remove () {\n    return this.getImmutable().delete(...arguments);\n  }\n\n  /**\n   * Create from adapter\n   * @param {DataAdapter} adapter\n   */\n  static create (adapter) {\n    let blockMap = BlockMap.create(adapter);\n    return TreeMap.createFromBlockMap(blockMap);\n  }\n\n  /**\n   * create `treeMap` from `blockMap`\n   * @param {BlockMap} blockMap\n   */\n  static createFromBlockMap (blockMap) {\n    return new TreeMap(orderedMap(blockMap.getImmutable().map(function (block) {\n      return BlockTree.create(block);\n    })));\n  }\n} \n"
+  },
+  {
+    "__docId__": 90,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "TreeMap",
+    "memberof": "lib/TreeMap.js",
+    "longname": "lib/TreeMap.js~TreeMap",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/TreeMap.js",
+    "importStyle": "TreeMap",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 91,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "immutable",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 92,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getImmutable",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#getImmutable",
+    "access": null,
+    "description": "Get immutable for this treeMap",
+    "lineNumber": 19,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJS",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#toJS",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toJSON",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#toJSON",
+    "access": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "toArray",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#toArray",
+    "access": null,
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 97,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "get",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#get",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 98,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getIn",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#getIn",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 99,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "set",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#set",
+    "access": null,
+    "description": null,
+    "lineNumber": 43,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 100,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_immutable",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#_immutable",
+    "access": null,
+    "description": null,
+    "lineNumber": 45,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "remove",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap#remove",
+    "access": null,
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 102,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "create",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap.create",
+    "access": null,
+    "description": "Create from adapter",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "DataAdapter"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "adapter",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 103,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "createFromBlockMap",
+    "memberof": "lib/TreeMap.js~TreeMap",
+    "longname": "lib/TreeMap.js~TreeMap.createFromBlockMap",
+    "access": null,
+    "description": "create `treeMap` from `blockMap`",
+    "lineNumber": 65,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "BlockMap"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blockMap",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 104,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -770,7 +2143,7 @@
     "content": "\nimport blockType from './blockType';\nimport ContentBlock from './components/ContentBlock';\n\n/**\n * Determine which component should we use for render the\n * current block.\n *\n * @param {BlockState} block - The block has getType method\n * that return a type of blockType.\n * @return {null|object}\n */\nexport default function blockRenderer (block) {\n  const type = block.getType();\n\n  switch (type) {\n  case blockType.MEDIA:\n    // not supported\n    return null;\n  default:\n    return ContentBlock;\n  }\n}\n\n/**\n * Get the parent element type for the block.\n * if the block's element type is `li`, then it\n * must be wrapped by `ul` element.\n * @param {number} type - one of `blockType`\n * @return {null|string}\n */\nexport function getParentElementForBlockOfType (type) {\n  switch (type) {\n  case blockType.UNORDERED_LIST_ITEM:\n    return 'ul';\n  case blockType.ORDERED_LIST_ITEM:\n    return 'ol';\n  case blockType.CODE:\n    return 'pre';\n  default:\n    return null;\n  }\n}\n\n/**\n * Get the element type for the block.\n * @param {number} type - one of `blockType`\n * @return {string}\n */\nexport function getElementForBlockOfType (type) {\n  switch (type) {\n  case blockType.UNORDERED_LIST_ITEM:\n  case blockType.ORDERED_LIST_ITEM:\n    return 'li';\n  case blockType.HEADER_ONE:\n    return 'h1';\n  case blockType.HEADER_TWO:\n    return 'h2';\n  case blockType.BLOCKQUOTE:\n    return 'blockquote';\n  default: \n    return 'div';\n  }\n}\n"
   },
   {
-    "__docId__": 37,
+    "__docId__": 105,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -807,7 +2180,7 @@
     "generator": false
   },
   {
-    "__docId__": 38,
+    "__docId__": 106,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -844,7 +2217,7 @@
     "generator": false
   },
   {
-    "__docId__": 39,
+    "__docId__": 107,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -880,167 +2253,7 @@
     "generator": false
   },
   {
-    "__docId__": 40,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "lib/blockTree.js",
-    "memberof": null,
-    "longname": "lib/blockTree.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "\nimport { List as list, Record as record } from 'immutable';\n\n/**\n * @private\n * @constant\n */\nconst persistentOfBlockTree = {\n  leafs: null\n};\n\n/**\n * @private\n * @constant\n */\nconst persistentOfLeaf = {\n  start: 0,\n  end: 0\n};\n\n/**\n * @private\n */\nconst BlockTreeRecord = record(persistentOfBlockTree);\nconst LeafRecord = record(persistentOfLeaf);\n\n/**\n * @public\n * @property {function} create - create a blockTree object.\n */\nlet blockTree = {\n  /**\n   * Block is a BlockState\n   * @return {object} `Immutable.List` object.\n   */\n  create (block) {\n    if (!block.size) {\n      // return empty\n      return emptyBlockTree();\n    }\n\n    let leafs = [];\n    let leaf = {start: 0, end: -1};\n    let start = 0;\n    let previousStyle = block.getCharacterList().first().get('style');\n\n    block.getCharacterList().forEach(function (ch) {\n      if (start === block.getCharacterList().size - 1) {\n        leaf.end = start + 1;\n        leafs.push(new LeafRecord(leaf));\n      }\n\n      if (ch.get('style') !== previousStyle) {\n        leaf.end = start;\n        leafs.push(new LeafRecord(leaf));\n        leaf = {start: start, end: -1};\n        previousStyle = ch.get('style');\n      }\n      start += 1;\n    });\n\n    return list.of(new BlockTreeRecord({\n      leafs: list(leafs)\n    }));\n  }\n};\n\nexport default blockTree;\n\n/**\n * create a empty block tree\n */\nfunction emptyBlockTree () {\n  return list.of(new BlockTreeRecord({\n    leafs: list.of(new LeafRecord())\n  }));\n}\n"
-  },
-  {
-    "__docId__": 41,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "persistentOfBlockTree",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~persistentOfBlockTree",
-    "access": "private",
-    "export": false,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 8,
-    "unknown": [
-      {
-        "tagName": "@constant",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 42,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "persistentOfLeaf",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~persistentOfLeaf",
-    "access": "private",
-    "export": false,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 16,
-    "unknown": [
-      {
-        "tagName": "@constant",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 43,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "BlockTreeRecord",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~BlockTreeRecord",
-    "access": "private",
-    "export": false,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 24,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 44,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "LeafRecord",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~LeafRecord",
-    "access": null,
-    "export": false,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 45,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "emptyBlockTree",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~emptyBlockTree",
-    "access": null,
-    "export": false,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": null,
-    "description": "create a empty block tree",
-    "lineNumber": 73,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 46,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "blockTree",
-    "memberof": "lib/blockTree.js",
-    "longname": "lib/blockTree.js~blockTree",
-    "access": "public",
-    "export": true,
-    "importPath": "composer-core/lib/blockTree.js",
-    "importStyle": "blockTree",
-    "description": null,
-    "lineNumber": 31,
-    "properties": [
-      {
-        "nullable": null,
-        "types": [
-          "function"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "create",
-        "description": "create a blockTree object."
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 47,
+    "__docId__": 108,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1053,7 +2266,7 @@
     "content": "/**\n * @public\n * @readonly\n * @enum {number}\n */\nconst blockType = {\n  UNSTYLED: 0,\n  PARAGRAPH: 1,\n  UNORDERED_LIST_ITEM: 2,\n  ORDERED_LIST_ITEM: 3,\n  BLOCKQUOTE: 4,\n  HEADER_ONE: 5,\n  HEADER_TWO: 6,\n  CODE: 7,\n  MEDIA: 8\n};\n\nexport default blockType;\n"
   },
   {
-    "__docId__": 48,
+    "__docId__": 109,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1083,7 +2296,7 @@
     }
   },
   {
-    "__docId__": 49,
+    "__docId__": 110,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1096,7 +2309,7 @@
     "content": "\nimport React, { Component } from 'react';\n\nexport default class BlockLeaf extends Component {\n\n  constructor (props) {\n    super(props);\n  }\n\n  render () {\n    return <span>{this.props.text}</span>;\n  }\n}\n\nBlockLeaf.propTypes = {\n  text: React.PropTypes.string\n};\n"
   },
   {
-    "__docId__": 50,
+    "__docId__": 111,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1116,7 +2329,7 @@
     ]
   },
   {
-    "__docId__": 51,
+    "__docId__": 112,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1138,7 +2351,7 @@
     "generator": false
   },
   {
-    "__docId__": 52,
+    "__docId__": 113,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1158,7 +2371,7 @@
     "generator": false
   },
   {
-    "__docId__": 53,
+    "__docId__": 114,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1171,7 +2384,7 @@
     "content": "import React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport Editor from './Editor';\nimport ass from '../util/ass';\n\nexport default class Composer extends Component {\n  constructor (props) {\n    super(props);\n  }\n\n  render () {\n    return (\n      <div className={ass('composer')}>\n        <Editor {...this.props} />\n      </div>\n    );\n  }\n}\n\nComposer.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired\n};\n"
   },
   {
-    "__docId__": 54,
+    "__docId__": 115,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1191,7 +2404,7 @@
     ]
   },
   {
-    "__docId__": 55,
+    "__docId__": 116,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1213,7 +2426,7 @@
     "generator": false
   },
   {
-    "__docId__": 56,
+    "__docId__": 117,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1233,7 +2446,7 @@
     "generator": false
   },
   {
-    "__docId__": 57,
+    "__docId__": 118,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1243,10 +2456,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\nimport React, { Component } from 'react';\nimport { getElementForBlockOfType } from '../blockRenderer';\nimport BlockLeaf from './BlockLeaf';\n\nexport default class ContentBlock extends Component {\n\n  static displayName = 'ContentBlock';\n\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const tree = this.props.tree;\n    const block = this.props.block;\n    const text = block.getText();\n    const key = block.getKey();\n\n    return tree.map(function (branch, i) {\n      const leafs = branch.get('leafs');\n\n      return leafs.map(function (leaf, j) {\n        const start = leaf.get('start');\n        const end = leaf.get('end');\n        const leafText = text.slice(start, end);\n        const inlineParentEle = 'span';\n\n        return React.createElement(inlineParentEle, {\n        }, React.createElement(BlockLeaf, {\n          text: leafText\n        }));\n      }.bind(this)).toArray();\n    }.bind(this)).toArray();\n  }\n\n  render () {\n    const block = this.props.block;\n    const elementType = getElementForBlockOfType(block.getType());\n\n    return React.createElement(elementType, {\n      'data-block': true\n    }, this._renderChild());\n  }\n}\n\nContentBlock.propTypes = {\n  block: React.PropTypes.object.isRequired,\n  tree: React.PropTypes.object.isRequired\n};\n"
+    "content": "\nimport React, { Component } from 'react';\nimport { getElementForBlockOfType } from '../blockRenderer';\nimport BlockLeaf from './BlockLeaf';\n\nexport default class ContentBlock extends Component {\n\n  static displayName = 'ContentBlock';\n\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const tree = this.props.tree;\n    const block = this.props.block;\n    const text = block.getText();\n\n    return tree.map((branch) => {\n      const leafs = branch.get('leafs');\n\n      return leafs.map((leaf) => {\n        const start = leaf.get('start');\n        const end = leaf.get('end');\n        const leafText = text.slice(start, end);\n        const inlineParentEle = 'span';\n\n        return React.createElement(inlineParentEle, {\n        }, React.createElement(BlockLeaf, {\n          text: leafText\n        }));\n      }).toArray();\n    }).toArray();\n  }\n\n  render () {\n    const block = this.props.block;\n    const elementType = getElementForBlockOfType(block.getType());\n\n    return React.createElement(elementType, {\n      'data-block': true\n    }, this._renderChild());\n  }\n}\n\nContentBlock.propTypes = {\n  block: React.PropTypes.object.isRequired,\n  tree: React.PropTypes.object.isRequired\n};\n"
   },
   {
-    "__docId__": 58,
+    "__docId__": 119,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1266,7 +2479,7 @@
     ]
   },
   {
-    "__docId__": 59,
+    "__docId__": 120,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1288,7 +2501,7 @@
     "generator": false
   },
   {
-    "__docId__": 60,
+    "__docId__": 121,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1308,7 +2521,7 @@
     "generator": false
   },
   {
-    "__docId__": 61,
+    "__docId__": 122,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1317,7 +2530,7 @@
     "longname": "lib/components/ContentBlock.js~ContentBlock#render",
     "access": null,
     "description": null,
-    "lineNumber": 37,
+    "lineNumber": 36,
     "undocument": true,
     "params": [],
     "return": {
@@ -1328,7 +2541,7 @@
     "generator": false
   },
   {
-    "__docId__": 62,
+    "__docId__": 123,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1341,7 +2554,7 @@
     "content": "import React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport ass from '../util/ass';\nimport richTextEditorHandler from '../richTextEditorHandler';\nimport EditorContent from './EditorContent';\n\nexport default class Editor extends Component {\n  constructor (props) {\n    super(props);\n\n    // keyboard handler\n    this._handler = null; \n  }\n\n  componentDidMount () {\n    this._handler = richTextEditorHandler;\n  }\n\n  getDefaultAttrs () {\n    return {\n      contentEditable: true,\n      spellCheck: true,\n      style: {\n        outline: 'none'\n      },\n\n      onKeyDown: setHandler('onKeyDown', this)\n    };\n  }\n\n  render () {\n    return (\n      <div {...this.getDefaultAttrs()} className={ass('editor')}>\n        <EditorContent editorState={this.props.editorState} />\n      </div>\n    );\n  }\n}\n\nEditor.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired\n};\n\nfunction setHandler (name, context) {\n  return function (e) {\n    if (this._handler && this._handler[name]) {\n      const handler = this._handler[name];\n      if (typeof handler === 'function') {\n        handler.call(this, e);\n      }\n    }\n  }.bind(context || this);\n}\n"
   },
   {
-    "__docId__": 63,
+    "__docId__": 124,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1361,7 +2574,7 @@
     ]
   },
   {
-    "__docId__": 64,
+    "__docId__": 125,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1383,7 +2596,7 @@
     "generator": false
   },
   {
-    "__docId__": 65,
+    "__docId__": 126,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -1401,7 +2614,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 127,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1416,7 +2629,7 @@
     "generator": false
   },
   {
-    "__docId__": 67,
+    "__docId__": 128,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -1434,7 +2647,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 129,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1454,7 +2667,7 @@
     "generator": false
   },
   {
-    "__docId__": 69,
+    "__docId__": 130,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1474,7 +2687,7 @@
     "generator": false
   },
   {
-    "__docId__": 70,
+    "__docId__": 131,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1510,7 +2723,7 @@
     "generator": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 132,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1520,10 +2733,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\nimport React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport ass from '../util/ass';\nimport defaultBlockRenderer, { getParentElementForBlockOfType } from '../blockRenderer';\n\nexport default class EditorContent extends Component {\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const editorState = this.props.editorState;\n    const blockMap = editorState.getBlockMap();\n    const blockMapAsArray = blockMap.toArray();\n    const blockRenderer = this.props.blockRenderer;\n\n    let renderedBlocks = [];\n    let blockStateItem;\n    let lastParentElement = null;\n    let parentElement = null;\n    let childsOfParentElement = null;\n\n    for (let i = 0; i < blockMapAsArray.length; i++) {\n      blockStateItem = blockMapAsArray[i];\n\n      const key = blockStateItem.getKey();\n      let tree = editorState.getBlockTreeForKey(key);\n      let BlockComponent = blockRenderer(blockStateItem);\n\n      // currently, just ignore it if we do not support that \n      // block type\n      if (BlockComponent === null) {\n        continue;\n      }\n\n      let renderedBlock = <BlockComponent block={blockStateItem} key={key} {...this.props} tree={tree} />;\n\n      parentElement = getParentElementForBlockOfType(blockStateItem.getType());\n      if (parentElement !== null) {\n        if (parentElement === lastParentElement && childsOfParentElement !== null) {\n          childsOfParentElement.push(renderedBlock);\n        } else {\n          childsOfParentElement = [];\n\n          let renderedParent = React.createElement(parentElement, {\n            'key': key + '-wrap'\n          }, childsOfParentElement);\n\n          childsOfParentElement.push(renderedBlock);\n          renderedBlocks.push(renderedParent);\n\n          lastParentElement = parentElement;\n          parentElement = null;\n        }\n      } else {\n        renderedBlocks.push(renderedBlock);\n        childsOfParentElement = null;\n        lastParentElement = null;\n        parentElement = null;\n      }\n    }\n\n    return renderedBlocks;\n  }\n\n  render () {\n    return (\n      <div className={ass('editorContent')}>\n        {this._renderChild()}\n      </div>\n    );\n  }\n}\n\nEditorContent.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired,\n  blockRenderer: React.PropTypes.func\n};\n\nEditorContent.defaultProps = {\n  blockRenderer: defaultBlockRenderer\n};\n"
+    "content": "\nimport React, { Component } from 'react';\nimport EditorState from '../EditorState';\nimport ass from '../util/ass';\nimport defaultBlockRenderer, { getParentElementForBlockOfType } from '../blockRenderer';\n\nexport default class EditorContent extends Component {\n  constructor (props) {\n    super(props);\n  }\n\n  _renderChild () {\n    const editorState = this.props.editorState;\n    const blockMap = editorState.getBlockMap();\n    const blockMapAsArray = blockMap.toArray();\n    const blockRenderer = this.props.blockRenderer;\n\n    let renderedBlocks = [];\n    let blockStateItem;\n    let lastParentElement = null;\n    let parentElement = null;\n    let childsOfParentElement = null;\n    console.log(editorState.toJS());\n\n    for (let i = 0; i < blockMapAsArray.length; i++) {\n      blockStateItem = blockMapAsArray[i];\n\n      const key = blockStateItem.getKey();\n      let tree = editorState.getBlockTreeForKey(key);\n      let BlockComponent = blockRenderer(blockStateItem);\n\n      // currently, just ignore it if we do not support that \n      // block type\n      if (BlockComponent === null) {\n        continue;\n      }\n\n      let renderedBlock = <BlockComponent block={blockStateItem} key={key} {...this.props} tree={tree} />;\n\n      parentElement = getParentElementForBlockOfType(blockStateItem.getType());\n      if (parentElement !== null) {\n        if (parentElement === lastParentElement && childsOfParentElement !== null) {\n          childsOfParentElement.push(renderedBlock);\n        } else {\n          childsOfParentElement = [];\n\n          let renderedParent = React.createElement(parentElement, {\n            'key': key + '-wrap'\n          }, childsOfParentElement);\n\n          childsOfParentElement.push(renderedBlock);\n          renderedBlocks.push(renderedParent);\n\n          lastParentElement = parentElement;\n          parentElement = null;\n        }\n      } else {\n        renderedBlocks.push(renderedBlock);\n        childsOfParentElement = null;\n        lastParentElement = null;\n        parentElement = null;\n      }\n    }\n\n    return renderedBlocks;\n  }\n\n  render () {\n    return (\n      <div className={ass('editorContent')}>\n        {this._renderChild()}\n      </div>\n    );\n  }\n}\n\nEditorContent.propTypes = {\n  editorState: React.PropTypes.instanceOf(EditorState).isRequired,\n  blockRenderer: React.PropTypes.func\n};\n\nEditorContent.defaultProps = {\n  blockRenderer: defaultBlockRenderer\n};\n"
   },
   {
-    "__docId__": 72,
+    "__docId__": 133,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1543,7 +2756,7 @@
     ]
   },
   {
-    "__docId__": 73,
+    "__docId__": 134,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -1565,7 +2778,7 @@
     "generator": false
   },
   {
-    "__docId__": 74,
+    "__docId__": 135,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1585,7 +2798,7 @@
     "generator": false
   },
   {
-    "__docId__": 75,
+    "__docId__": 136,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1594,7 +2807,7 @@
     "longname": "lib/components/EditorContent.js~EditorContent#render",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 68,
     "undocument": true,
     "params": [],
     "return": {
@@ -1605,7 +2818,50 @@
     "generator": false
   },
   {
-    "__docId__": 76,
+    "__docId__": 137,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/entityType.js",
+    "memberof": null,
+    "longname": "lib/entityType.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\n/**\n * Entity can be Links etc.\n * @readonly\n * @enum {number}\n */\nconst entityType = {\n  NONE: 0,\n  LINK: 1\n};\n\nexport default entityType;\n"
+  },
+  {
+    "__docId__": 138,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "entityType",
+    "memberof": "lib/entityType.js",
+    "longname": "lib/entityType.js~entityType",
+    "access": null,
+    "export": true,
+    "importPath": "composer-core/lib/entityType.js",
+    "importStyle": "entityType",
+    "description": "Entity can be Links etc.",
+    "lineNumber": 7,
+    "unknown": [
+      {
+        "tagName": "@readonly",
+        "tagValue": ""
+      },
+      {
+        "tagName": "@enum",
+        "tagValue": "{number}"
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 139,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1618,7 +2874,7 @@
     "content": "\nlet used = {};\nlet hasOwnProp = Object.prototype.hasOwnProperty;\n\n/**\n * Generate a random key.\n * @return {string}\n */\nexport default function () {\n  let key = ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);\n  while (hasOwnProp.call(used, key)) {\n    key = ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);\n  }\n\n  used[key] = true;\n  return key;\n}\n"
   },
   {
-    "__docId__": 77,
+    "__docId__": 140,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1639,7 +2895,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 141,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1660,7 +2916,7 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 142,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1685,7 +2941,7 @@
     "generator": false
   },
   {
-    "__docId__": 80,
+    "__docId__": 143,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1695,10 +2951,10 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "// Copyright (c) 2015, Towry Wang (http://towry.me)\n// All rights reserved.\n// Use of this source code is governed by a MIT license that can be\n// found in the LICENSE file.\n\nimport pkg from '../package.json';\n\nconst VERSION = pkg.version;\n\nexport default {\n  VERSION\n};\n"
+    "content": "// Copyright (c) 2015, Towry Wang (http://towry.me)\n// All rights reserved.\n// Use of this source code is governed by a MIT license that can be\n// found in the LICENSE file.\n\nimport pkg from '../package.json';\n\nconst VERSION = pkg.version;\n\nexport default {\n  VERSION\n};\n\n"
   },
   {
-    "__docId__": 81,
+    "__docId__": 144,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1719,7 +2975,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 145,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1732,7 +2988,7 @@
     "content": "/**\n * @public\n * @readonly\n * @enum {number}\n */\nconst inlineType = {\n  NONE: 0,\n  BOLD: 1,\n  ITALIC: 2,\n  UNDERLINE: 4,\n  CODE: 8,\n  STRIKETHROUGH: 16,\n  SUBSCRIPT: 32,\n  SUPERSCRIPT: 64\n};\n\nexport default inlineType;\n"
   },
   {
-    "__docId__": 83,
+    "__docId__": 146,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1762,7 +3018,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 147,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1775,7 +3031,7 @@
     "content": "\n/**\n * object that hold the handlers\n */\nlet richTextEditorHandler = {\n  onKeyDown (e) {\n    switch (e.which) {\n    case 13:\n      e.preventDefault();\n      console.log('enter');\n      break;\n    default:\n      break;\n    }\n  }\n};\n\nexport default richTextEditorHandler;\n"
   },
   {
-    "__docId__": 85,
+    "__docId__": 148,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1795,106 +3051,7 @@
     }
   },
   {
-    "__docId__": 86,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "lib/treeMapBuilder.js",
-    "memberof": null,
-    "longname": "lib/treeMapBuilder.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "\nimport { OrderedMap as orderedMap } from 'immutable';\nimport blockMapBuilder from './blockMapBuilder';\nimport blockTree from './blockTree';\n\n/**\n * Create `treeMap` from array.\n * @param {array} blocks \n */\nfunction createFromArray (blocks) {\n  let blockMap = blockMapBuilder.createFromArray(blocks);\n\n  return createFromBlockMap(blockMap);\n}\n\n/**\n * create `treeMap` from `blockMap`\n * @param {object} blockmap\n */\nfunction createFromBlockMap (blockMap) {\n  return orderedMap(blockMap.map(function (block) {\n    return blockTree.create(block);\n  }));\n}\n\n/**\n * module, see source.\n */\nlet treeMapBuilder = {\n  createFromArray,\n  createFromBlockMap\n};\n\nexport default treeMapBuilder;\n"
-  },
-  {
-    "__docId__": 87,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "createFromArray",
-    "memberof": "lib/treeMapBuilder.js",
-    "longname": "lib/treeMapBuilder.js~createFromArray",
-    "access": null,
-    "export": false,
-    "importPath": "composer-core/lib/treeMapBuilder.js",
-    "importStyle": null,
-    "description": "Create `treeMap` from array.",
-    "lineNumber": 10,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "array"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "blocks",
-        "description": ""
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 88,
-    "kind": "function",
-    "static": true,
-    "variation": null,
-    "name": "createFromBlockMap",
-    "memberof": "lib/treeMapBuilder.js",
-    "longname": "lib/treeMapBuilder.js~createFromBlockMap",
-    "access": null,
-    "export": false,
-    "importPath": "composer-core/lib/treeMapBuilder.js",
-    "importStyle": null,
-    "description": "create `treeMap` from `blockMap`",
-    "lineNumber": 20,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "blockmap",
-        "description": ""
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 89,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "treeMapBuilder",
-    "memberof": "lib/treeMapBuilder.js",
-    "longname": "lib/treeMapBuilder.js~treeMapBuilder",
-    "access": null,
-    "export": true,
-    "importPath": "composer-core/lib/treeMapBuilder.js",
-    "importStyle": "treeMapBuilder",
-    "description": "module, see source.",
-    "lineNumber": 29,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 90,
+    "__docId__": 149,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1907,7 +3064,7 @@
     "content": "\nconst prefix = '_RcmVh';\n\n/**\n * Construct a class with a prefix.\n * @return {string}\n */\nexport default function (a) {\n  return prefix + '-' + a;\n}\n\n/**\n * @return {string}\n */\nexport function getPrefix () {\n  return prefix;\n}\n"
   },
   {
-    "__docId__": 91,
+    "__docId__": 150,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -1928,7 +3085,7 @@
     }
   },
   {
-    "__docId__": 92,
+    "__docId__": 151,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1960,7 +3117,7 @@
     "generator": false
   },
   {
-    "__docId__": 93,
+    "__docId__": 152,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -1985,7 +3142,7 @@
     "generator": false
   },
   {
-    "__docId__": 94,
+    "__docId__": 153,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -1998,7 +3155,7 @@
     "content": "\nexport default function empty () {}\n\n// do not export this explict\nempty.withReturn = function (v) {\n  return function () {\n    return v;\n  };\n};\n"
   },
   {
-    "__docId__": 95,
+    "__docId__": 154,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2016,7 +3173,7 @@
     "generator": false
   },
   {
-    "__docId__": 96,
+    "__docId__": 155,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2046,7 +3203,7 @@
     "generator": false
   },
   {
-    "__docId__": 97,
+    "__docId__": 156,
     "kind": "file",
     "static": true,
     "variation": null,
@@ -2059,7 +3216,7 @@
     "content": "\n/**\n * `danger` object may contains some attribute \n * that we do not want.\n * @param {object} danger The object that needs filter.\n * @param {object} defaults\n */\nexport default function (danger, defaults) {\n  let rets = {};\n\n  Object.keys(danger).map(function (key) {\n    if (key in defaults) {\n      rets[key] = danger[key];\n    }\n  });\n\n  return rets;\n}\n"
   },
   {
-    "__docId__": 98,
+    "__docId__": 157,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -2102,7 +3259,7 @@
     "generator": false
   },
   {
-    "__docId__": 100,
+    "__docId__": 159,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2115,7 +3272,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 160,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2128,7 +3285,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 161,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2141,7 +3298,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 162,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2154,7 +3311,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 163,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2167,7 +3324,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 164,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2180,7 +3337,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 165,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2193,7 +3350,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 166,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2206,7 +3363,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 167,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2219,7 +3376,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 168,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2232,7 +3389,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 169,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2245,7 +3402,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 170,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2258,7 +3415,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 112,
+    "__docId__": 171,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2271,7 +3428,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 113,
+    "__docId__": 172,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2284,7 +3441,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 114,
+    "__docId__": 173,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2297,7 +3454,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 115,
+    "__docId__": 174,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2310,7 +3467,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 175,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2323,7 +3480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 117,
+    "__docId__": 176,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2336,7 +3493,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 118,
+    "__docId__": 177,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2349,7 +3506,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 119,
+    "__docId__": 178,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2362,7 +3519,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 120,
+    "__docId__": 179,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2375,7 +3532,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 121,
+    "__docId__": 180,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2388,7 +3545,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 122,
+    "__docId__": 181,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2401,7 +3558,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 123,
+    "__docId__": 182,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2414,7 +3571,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 124,
+    "__docId__": 183,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2427,7 +3584,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 125,
+    "__docId__": 184,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2440,7 +3597,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 126,
+    "__docId__": 185,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2453,7 +3610,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 127,
+    "__docId__": 186,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2466,7 +3623,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 128,
+    "__docId__": 187,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2479,7 +3636,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 129,
+    "__docId__": 188,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2492,7 +3649,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 130,
+    "__docId__": 189,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2505,7 +3662,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 131,
+    "__docId__": 190,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2518,7 +3675,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 132,
+    "__docId__": 191,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2531,7 +3688,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 133,
+    "__docId__": 192,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2544,7 +3701,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 134,
+    "__docId__": 193,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2557,7 +3714,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 135,
+    "__docId__": 194,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2570,7 +3727,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 136,
+    "__docId__": 195,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2583,7 +3740,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 137,
+    "__docId__": 196,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2596,7 +3753,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 138,
+    "__docId__": 197,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2609,7 +3766,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 139,
+    "__docId__": 198,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2622,7 +3779,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 140,
+    "__docId__": 199,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2635,7 +3792,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 141,
+    "__docId__": 200,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2648,7 +3805,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 142,
+    "__docId__": 201,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2661,7 +3818,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 143,
+    "__docId__": 202,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2674,7 +3831,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 144,
+    "__docId__": 203,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2687,7 +3844,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 145,
+    "__docId__": 204,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2700,7 +3857,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 146,
+    "__docId__": 205,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2713,7 +3870,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 148,
+    "__docId__": 207,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2726,7 +3883,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 149,
+    "__docId__": 208,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2739,7 +3896,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 150,
+    "__docId__": 209,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2752,7 +3909,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 151,
+    "__docId__": 210,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2765,7 +3922,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 152,
+    "__docId__": 211,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2778,7 +3935,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 153,
+    "__docId__": 212,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -2791,7 +3948,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 154,
+    "__docId__": 213,
     "kind": "external",
     "static": true,
     "variation": null,

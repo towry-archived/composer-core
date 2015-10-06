@@ -31,19 +31,24 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html">BlockMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockTree.js~BlockTree.html">BlockTree</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html">EditorState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EntityData.js~EntityData.html">EntityData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EntityMap.js~EntityMap.html">EntityMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TreeMap.js~TreeMap.html">TreeMap</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockRenderer">blockRenderer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElementForBlockOfType">getElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParentElementForBlockOfType">getParentElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateKey">generateKey</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockMapBuilder">blockMapBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockTree">blockTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RecordOfEntity">RecordOfEntity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockType">blockType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityType">entityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inlineType">inlineType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-richTextEditorHandler">richTextEditorHandler</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-treeMapBuilder">treeMapBuilder</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/BlockLeaf.js~BlockLeaf.html">BlockLeaf</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/Composer.js~Composer.html">Composer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/ContentBlock.js~ContentBlock.html">ContentBlock</a></span></span></li>
@@ -59,12 +64,14 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/EditorState.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Record as record } from &apos;immutable&apos;;
-import blockMapBuilder from &apos;./blockMapBuilder&apos;;
-import treeMapBuilder from &apos;./treeMapBuilder&apos;;
+import BlockMap from &apos;./BlockMap&apos;;
+import TreeMap from &apos;./TreeMap&apos;;
+import EntityMap from &apos;./EntityMap&apos;;
 
 const persistent = {
   treeMap: null,
-  blockMap: null
+  blockMap: null,
+  entityMap: null
 };
 
 const StateRecord = record(persistent);
@@ -116,7 +123,14 @@ export default class EditorState {
   }
 
   /**
-   * from the treeMap, get a tree by a key
+   * Get entityMap from immutable
+   */
+  getEntityMap () {
+    return this.getImmutable().get(&apos;entityMap&apos;);
+  }
+
+  /**
+   * from the treeMap, get a tree by a key.
    * @param {string} key
    */
   getBlockTreeForKey (key) {
@@ -124,14 +138,23 @@ export default class EditorState {
   }
 
   /**
-   * Create an `EditorState` object.
-   * @param {array} blocks
+   * from the entityMap, get a entity by a key.
+   * @param {string} key
    */
-  static create (blocks) {
-    let blockMap = blockMapBuilder.createFromArray(blocks);
-    let treeMap = treeMapBuilder.createFromBlockMap(blockMap);
+  getEntityForKey (key) {
+    return this.getEntityMap().get(key);
+  }
 
-    return new EditorState(new StateRecord({blockMap, treeMap}));
+  /**
+   * Create an `EditorState` object.
+   * @param {DataAdater} adapter
+   */
+  static create (adapter) {
+    let blockMap = BlockMap.create(adapter);
+    let treeMap = TreeMap.createFromBlockMap(blockMap);
+    let entityMap = EntityMap.create(adapter);
+
+    return new EditorState(new StateRecord({blockMap, treeMap, entityMap}));
   }
 
   /**

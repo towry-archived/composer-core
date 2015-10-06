@@ -31,19 +31,24 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html">BlockMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html">BlockState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/BlockTree.js~BlockTree.html">BlockTree</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EditorState.js~EditorState.html">EditorState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EntityData.js~EntityData.html">EntityData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/EntityMap.js~EntityMap.html">EntityMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/TreeMap.js~TreeMap.html">TreeMap</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blockRenderer">blockRenderer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getElementForBlockOfType">getElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getParentElementForBlockOfType">getParentElementForBlockOfType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-generateKey">generateKey</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockMapBuilder">blockMapBuilder</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockTree">blockTree</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-RecordOfEntity">RecordOfEntity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-blockType">blockType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityType">entityType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inlineType">inlineType</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-richTextEditorHandler">richTextEditorHandler</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-treeMapBuilder">treeMapBuilder</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/BlockLeaf.js~BlockLeaf.html">BlockLeaf</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/Composer.js~Composer.html">Composer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/components/ContentBlock.js~ContentBlock.html">ContentBlock</a></span></span></li>
@@ -75,12 +80,11 @@ export default class ContentBlock extends Component {
     const tree = this.props.tree;
     const block = this.props.block;
     const text = block.getText();
-    const key = block.getKey();
 
-    return tree.map(function (branch, i) {
+    return tree.map((branch) =&gt; {
       const leafs = branch.get(&apos;leafs&apos;);
 
-      return leafs.map(function (leaf, j) {
+      return leafs.map((leaf) =&gt; {
         const start = leaf.get(&apos;start&apos;);
         const end = leaf.get(&apos;end&apos;);
         const leafText = text.slice(start, end);
@@ -90,8 +94,8 @@ export default class ContentBlock extends Component {
         }, React.createElement(BlockLeaf, {
           text: leafText
         }));
-      }.bind(this)).toArray();
-    }.bind(this)).toArray();
+      }).toArray();
+    }).toArray();
   }
 
   render () {

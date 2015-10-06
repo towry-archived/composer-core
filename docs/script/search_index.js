@@ -6,9 +6,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "composer-core/lib/blockmap.js~blockmap",
+    "class/lib/BlockMap.js~BlockMap.html",
+    "<span>BlockMap</span> <span class=\"search-result-import-path\">composer-core/lib/BlockMap.js</span>",
+    "class"
+  ],
+  [
     "composer-core/lib/blockstate.js~blockstate",
     "class/lib/BlockState.js~BlockState.html",
     "<span>BlockState</span> <span class=\"search-result-import-path\">composer-core/lib/BlockState.js</span>",
+    "class"
+  ],
+  [
+    "composer-core/lib/blocktree.js~blocktree",
+    "class/lib/BlockTree.js~BlockTree.html",
+    "<span>BlockTree</span> <span class=\"search-result-import-path\">composer-core/lib/BlockTree.js</span>",
     "class"
   ],
   [
@@ -48,28 +60,46 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "composer-core/lib/entity.js~entity",
+    "class/lib/Entity.js~Entity.html",
+    "<span>Entity</span> <span class=\"search-result-import-path\">composer-core/lib/Entity.js</span>",
+    "class"
+  ],
+  [
+    "composer-core/lib/entitydata.js~entitydata",
+    "class/lib/EntityData.js~EntityData.html",
+    "<span>EntityData</span> <span class=\"search-result-import-path\">composer-core/lib/EntityData.js</span>",
+    "class"
+  ],
+  [
+    "composer-core/lib/entitymap.js~entitymap",
+    "class/lib/EntityMap.js~EntityMap.html",
+    "<span>EntityMap</span> <span class=\"search-result-import-path\">composer-core/lib/EntityMap.js</span>",
+    "class"
+  ],
+  [
+    "composer-core/lib/entity.js~recordofentity",
+    "variable/index.html#static-variable-RecordOfEntity",
+    "<span>RecordOfEntity</span> <span class=\"search-result-import-path\">composer-core/lib/Entity.js</span>",
+    "variable"
+  ],
+  [
+    "composer-core/lib/treemap.js~treemap",
+    "class/lib/TreeMap.js~TreeMap.html",
+    "<span>TreeMap</span> <span class=\"search-result-import-path\">composer-core/lib/TreeMap.js</span>",
+    "class"
+  ],
+  [
     "composer-core/lib/util/ass.js~ass",
     "function/index.html#static-function-ass",
     "<span>ass</span> <span class=\"search-result-import-path\">composer-core/lib/util/ass.js</span>",
     "function"
   ],
   [
-    "composer-core/lib/blockmapbuilder.js~blockmapbuilder",
-    "variable/index.html#static-variable-blockMapBuilder",
-    "<span>blockMapBuilder</span> <span class=\"search-result-import-path\">composer-core/lib/blockMapBuilder.js</span>",
-    "variable"
-  ],
-  [
     "composer-core/lib/blockrenderer.js~blockrenderer",
     "function/index.html#static-function-blockRenderer",
     "<span>blockRenderer</span> <span class=\"search-result-import-path\">composer-core/lib/blockRenderer.js</span>",
     "function"
-  ],
-  [
-    "composer-core/lib/blocktree.js~blocktree",
-    "variable/index.html#static-variable-blockTree",
-    "<span>blockTree</span> <span class=\"search-result-import-path\">composer-core/lib/blockTree.js</span>",
-    "variable"
   ],
   [
     "composer-core/lib/blocktype.js~blocktype",
@@ -82,6 +112,12 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-empty",
     "<span>empty</span> <span class=\"search-result-import-path\">composer-core/lib/util/emptyFunc.js</span>",
     "function"
+  ],
+  [
+    "composer-core/lib/entitytype.js~entitytype",
+    "variable/index.html#static-variable-entityType",
+    "<span>entityType</span> <span class=\"search-result-import-path\">composer-core/lib/entityType.js</span>",
+    "variable"
   ],
   [
     "composer-core/lib/generatekey.js~generatekey",
@@ -123,12 +159,6 @@ window.esdocSearchIndex = [
     "composer-core/lib/richtexteditorhandler.js~richtexteditorhandler",
     "variable/index.html#static-variable-richTextEditorHandler",
     "<span>richTextEditorHandler</span> <span class=\"search-result-import-path\">composer-core/lib/richTextEditorHandler.js</span>",
-    "variable"
-  ],
-  [
-    "composer-core/lib/treemapbuilder.js~treemapbuilder",
-    "variable/index.html#static-variable-treeMapBuilder",
-    "<span>treeMapBuilder</span> <span class=\"search-result-import-path\">composer-core/lib/treeMapBuilder.js</span>",
     "variable"
   ],
   [
@@ -456,6 +486,78 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "lib/blockmap.js",
+    "file/lib/BlockMap.js.html",
+    "lib/BlockMap.js",
+    "file"
+  ],
+  [
+    "lib/blockmap.js~blockmap#constructor",
+    "class/lib/BlockMap.js~BlockMap.html#instance-constructor-constructor",
+    "lib/BlockMap.js~BlockMap#constructor",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#get",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-get",
+    "lib/BlockMap.js~BlockMap#get",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#getimmutable",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-getImmutable",
+    "lib/BlockMap.js~BlockMap#getImmutable",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#getin",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-getIn",
+    "lib/BlockMap.js~BlockMap#getIn",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#remove",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-remove",
+    "lib/BlockMap.js~BlockMap#remove",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#set",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-set",
+    "lib/BlockMap.js~BlockMap#set",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#toarray",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-toArray",
+    "lib/BlockMap.js~BlockMap#toArray",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#tojs",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-toJS",
+    "lib/BlockMap.js~BlockMap#toJS",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap#tojson",
+    "class/lib/BlockMap.js~BlockMap.html#instance-method-toJSON",
+    "lib/BlockMap.js~BlockMap#toJSON",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap.create",
+    "class/lib/BlockMap.js~BlockMap.html#static-method-create",
+    "lib/BlockMap.js~BlockMap.create",
+    "method"
+  ],
+  [
+    "lib/blockmap.js~blockmap.createfromarray",
+    "class/lib/BlockMap.js~BlockMap.html#static-method-createFromArray",
+    "lib/BlockMap.js~BlockMap.createFromArray",
+    "method"
+  ],
+  [
     "lib/blockstate.js",
     "file/lib/BlockState.js.html",
     "lib/BlockState.js",
@@ -498,6 +600,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/blocktree.js",
+    "file/lib/BlockTree.js.html",
+    "lib/BlockTree.js",
+    "file"
+  ],
+  [
+    "lib/blocktree.js~blocktree#constructor",
+    "class/lib/BlockTree.js~BlockTree.html#instance-constructor-constructor",
+    "lib/BlockTree.js~BlockTree#constructor",
+    "method"
+  ],
+  [
+    "lib/blocktree.js~blocktree.create",
+    "class/lib/BlockTree.js~BlockTree.html#static-method-create",
+    "lib/BlockTree.js~BlockTree.create",
+    "method"
+  ],
+  [
     "lib/dataadapter.js",
     "file/lib/DataAdapter.js.html",
     "lib/DataAdapter.js",
@@ -510,9 +630,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/dataadapter.js~dataadapter#getblockdepths",
+    "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getBlockDepths",
+    "lib/DataAdapter.js~DataAdapter#getBlockDepths",
+    "method"
+  ],
+  [
+    "lib/dataadapter.js~dataadapter#getblocktypes",
+    "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getBlockTypes",
+    "lib/DataAdapter.js~DataAdapter#getBlockTypes",
+    "method"
+  ],
+  [
     "lib/dataadapter.js~dataadapter#getblocks",
     "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getBlocks",
     "lib/DataAdapter.js~DataAdapter#getBlocks",
+    "method"
+  ],
+  [
+    "lib/dataadapter.js~dataadapter#getentities",
+    "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getEntities",
+    "lib/DataAdapter.js~DataAdapter#getEntities",
+    "method"
+  ],
+  [
+    "lib/dataadapter.js~dataadapter#getentitymap",
+    "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getEntityMap",
+    "lib/DataAdapter.js~DataAdapter#getEntityMap",
+    "method"
+  ],
+  [
+    "lib/dataadapter.js~dataadapter#getinlinestyles",
+    "class/lib/DataAdapter.js~DataAdapter.html#instance-method-getInlineStyles",
+    "lib/DataAdapter.js~DataAdapter#getInlineStyles",
     "method"
   ],
   [
@@ -543,6 +693,18 @@ window.esdocSearchIndex = [
     "lib/editorstate.js~editorstate#getblocktreeforkey",
     "class/lib/EditorState.js~EditorState.html#instance-method-getBlockTreeForKey",
     "lib/EditorState.js~EditorState#getBlockTreeForKey",
+    "method"
+  ],
+  [
+    "lib/editorstate.js~editorstate#getentityforkey",
+    "class/lib/EditorState.js~EditorState.html#instance-method-getEntityForKey",
+    "lib/EditorState.js~EditorState#getEntityForKey",
+    "method"
+  ],
+  [
+    "lib/editorstate.js~editorstate#getentitymap",
+    "class/lib/EditorState.js~EditorState.html#instance-method-getEntityMap",
+    "lib/EditorState.js~EditorState#getEntityMap",
     "method"
   ],
   [
@@ -582,21 +744,183 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/blockmapbuilder.js",
-    "file/lib/blockMapBuilder.js.html",
-    "lib/blockMapBuilder.js",
+    "lib/entity.js",
+    "file/lib/Entity.js.html",
+    "lib/Entity.js",
     "file"
+  ],
+  [
+    "lib/entity.js~entity#constructor",
+    "class/lib/Entity.js~Entity.html#instance-constructor-constructor",
+    "lib/Entity.js~Entity#constructor",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#getdata",
+    "class/lib/Entity.js~Entity.html#instance-method-getData",
+    "lib/Entity.js~Entity#getData",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#gettype",
+    "class/lib/Entity.js~Entity.html#instance-method-getType",
+    "lib/Entity.js~Entity#getType",
+    "method"
+  ],
+  [
+    "lib/entitydata.js",
+    "file/lib/EntityData.js.html",
+    "lib/EntityData.js",
+    "file"
+  ],
+  [
+    "lib/entitydata.js~entitydata#constructor",
+    "class/lib/EntityData.js~EntityData.html#instance-constructor-constructor",
+    "lib/EntityData.js~EntityData#constructor",
+    "method"
+  ],
+  [
+    "lib/entitymap.js",
+    "file/lib/EntityMap.js.html",
+    "lib/EntityMap.js",
+    "file"
+  ],
+  [
+    "lib/entitymap.js~entitymap#constructor",
+    "class/lib/EntityMap.js~EntityMap.html#instance-constructor-constructor",
+    "lib/EntityMap.js~EntityMap#constructor",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#get",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-get",
+    "lib/EntityMap.js~EntityMap#get",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#getimmutable",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-getImmutable",
+    "lib/EntityMap.js~EntityMap#getImmutable",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#getin",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-getIn",
+    "lib/EntityMap.js~EntityMap#getIn",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#remove",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-remove",
+    "lib/EntityMap.js~EntityMap#remove",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#set",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-set",
+    "lib/EntityMap.js~EntityMap#set",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#toarray",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-toArray",
+    "lib/EntityMap.js~EntityMap#toArray",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#tojs",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-toJS",
+    "lib/EntityMap.js~EntityMap#toJS",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap#tojson",
+    "class/lib/EntityMap.js~EntityMap.html#instance-method-toJSON",
+    "lib/EntityMap.js~EntityMap#toJSON",
+    "method"
+  ],
+  [
+    "lib/entitymap.js~entitymap.create",
+    "class/lib/EntityMap.js~EntityMap.html#static-method-create",
+    "lib/EntityMap.js~EntityMap.create",
+    "method"
+  ],
+  [
+    "lib/treemap.js",
+    "file/lib/TreeMap.js.html",
+    "lib/TreeMap.js",
+    "file"
+  ],
+  [
+    "lib/treemap.js~treemap#constructor",
+    "class/lib/TreeMap.js~TreeMap.html#instance-constructor-constructor",
+    "lib/TreeMap.js~TreeMap#constructor",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#get",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-get",
+    "lib/TreeMap.js~TreeMap#get",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#getimmutable",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-getImmutable",
+    "lib/TreeMap.js~TreeMap#getImmutable",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#getin",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-getIn",
+    "lib/TreeMap.js~TreeMap#getIn",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#remove",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-remove",
+    "lib/TreeMap.js~TreeMap#remove",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#set",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-set",
+    "lib/TreeMap.js~TreeMap#set",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#toarray",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-toArray",
+    "lib/TreeMap.js~TreeMap#toArray",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#tojs",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-toJS",
+    "lib/TreeMap.js~TreeMap#toJS",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap#tojson",
+    "class/lib/TreeMap.js~TreeMap.html#instance-method-toJSON",
+    "lib/TreeMap.js~TreeMap#toJSON",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap.create",
+    "class/lib/TreeMap.js~TreeMap.html#static-method-create",
+    "lib/TreeMap.js~TreeMap.create",
+    "method"
+  ],
+  [
+    "lib/treemap.js~treemap.createfromblockmap",
+    "class/lib/TreeMap.js~TreeMap.html#static-method-createFromBlockMap",
+    "lib/TreeMap.js~TreeMap.createFromBlockMap",
+    "method"
   ],
   [
     "lib/blockrenderer.js",
     "file/lib/blockRenderer.js.html",
     "lib/blockRenderer.js",
-    "file"
-  ],
-  [
-    "lib/blocktree.js",
-    "file/lib/blockTree.js.html",
-    "lib/blockTree.js",
     "file"
   ],
   [
@@ -708,6 +1032,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/entitytype.js",
+    "file/lib/entityType.js.html",
+    "lib/entityType.js",
+    "file"
+  ],
+  [
     "lib/generatekey.js",
     "file/lib/generateKey.js.html",
     "lib/generateKey.js",
@@ -729,12 +1059,6 @@ window.esdocSearchIndex = [
     "lib/richtexteditorhandler.js",
     "file/lib/richTextEditorHandler.js.html",
     "lib/richTextEditorHandler.js",
-    "file"
-  ],
-  [
-    "lib/treemapbuilder.js",
-    "file/lib/treeMapBuilder.js.html",
-    "lib/treeMapBuilder.js",
     "file"
   ],
   [
