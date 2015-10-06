@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/DataAdapter.js | Composer Core Docs API Document</title>
+  <title data-ice="title">lib/BlockMap.js | Composer Core Docs API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -62,65 +62,104 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/DataAdapter.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * Simple base DataAdapter
+<div class="content" data-ice="content"><h1 data-ice="title">lib/BlockMap.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+import BlockState from &apos;./BlockState&apos;;
+import { OrderedMap as orderedMap } from &apos;immutable&apos;;
+import generateKey from &apos;./generateKey&apos;;
+
+/**
+ * BlockMap class
  */
+export default class BlockMap {
 
-export default class DataAdapter {
-  constructor (data = {}) {
-    this._data = data;
+  constructor (immutable) {
+    if (!immutable || !(immutable instanceof orderedMap)) {
+      throw new Error(&apos;Please use `BlockMap.createFromArray` method&apos;);
+    }
+
+    this._immutable = immutable;
+  }
+
+  /** 
+   * Get immutable for this blockMap
+   */
+  getImmutable () {
+    return this._immutable;
+  }
+
+  toJS () {
+    return this.getImmutable().toJS();
+  }
+
+  toJSON () {
+    return this.getImmutable().toJSON();
+  }
+
+  toArray () {
+    return this.getImmutable().toArray();
+  }
+
+  get () {
+    return this.getImmutable().get(...arguments);
+  }
+
+  getIn () {
+    return this.getImmutable().getIn(...arguments);
+  }
+
+  set () {
+    let newImmutable = this.getImmutable().set(...arguments);
+    this._immutable = newImmutable;
+  }
+
+  remove () {
+    return this.getImmutable().delete(...arguments);
   }
 
   /**
-   * @param {object} data The data source
+   * Create from adapter
+   * @param {DataAdapter} adapter
    */
-  setData (data) {
-    this._data = data;
+  static create (adapter) {
+    const entities = adapter.getEntities();
+    return new BlockMap(orderedMap(adapter.getBlocks().map(function (blockText, i) {
+      let blockObject = createBlockObject(adapter, i);
+      blockObject.key = blockObject.key || generateKey();
+      blockObject.text = blockText;
+      blockObject.entity = entities.length &gt; i ? entities[i] : null;
+      return [blockObject.key, BlockState.create(blockObject)];
+    })));
   }
 
   /**
-   * Must return array
-   * @return {array}
+   * Build the mapBlock from array
+   * @deprecated
+   * @param {object[]} blocks - Array of object.
+   * @return {object} `Immutable.OrderedMap` object.
    */
-  getBlocks () {
-    return this._data.blocks || [];
+  static createFromArray (blocks) {
+    return new BlockMap(orderedMap(blocks.map(function (block) {
+      block.key = block.key || generateKey();
+      return [block.key, BlockState.create(block)];
+    })));
   }
+}
 
-  /**
-   * @return {array}
-   */
-  getBlockTypes () {
-    return this._data.block_types || [];
-  }
+function createBlockObject (adapter, index) {
+  let inlineStyles = adapter.getInlineStyles();
+  let blockTypes = adapter.getBlockTypes();
+  let blockDepths = adapter.getBlockDepths();
 
-  /**
-   * @return {array}
-   */
-  getBlockDepths () {
-    return this._data.block_depths || [];
-  }
+  let style = inlineStyles[index];
+  let type = blockTypes[index];
+  let depth = blockDepths[index];
 
-  /**
-   * @return {array}
-   */
-  getInlineStyles () {
-    return this._data.inline_styles || [];
-  }
-
-  /**
-   * @return {array}
-   */
-  getEntities () {
-    return this._data.entities || [];
-  }
-
-  /**
-   * @return {object}
-   */
-  getEntityMap () {
-    return this._data.entity_map;
-  }
+  return {
+    style,
+    type,
+    depth
+  };
 }
 </code></pre>
 

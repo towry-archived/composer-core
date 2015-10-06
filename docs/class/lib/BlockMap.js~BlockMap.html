@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">BlockState | Composer Core Docs API Document</title>
+  <title data-ice="title">BlockMap | Composer Core Docs API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -63,23 +63,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import BlockState from &apos;<span><a href="file/lib/BlockState.js.html#lineNumber34">composer-core/lib/BlockState.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import BlockMap from &apos;<span><a href="file/lib/BlockMap.js.html#lineNumber9">composer-core/lib/BlockMap.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/BlockState.js.html#lineNumber34">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/BlockMap.js.html#lineNumber9">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">BlockState</h1>
+  <h1 data-ice="name">BlockMap</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>lib/BlockState.js~Base</span> &#x2192; BlockState</div></div>
+  
   
   
   
@@ -89,7 +89,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>This is a <code>Immutable.Record</code> constructor.</p>
+  <div class="description" data-ice="description"><p>BlockMap class</p>
 </div>
 
   
@@ -117,13 +117,38 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#static-method-create">create</a></span></span><span data-ice="signature">(obj: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#static-method-create">create</a></span></span><span data-ice="signature">(adapter: <span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Create a new `BlockState`.</div>
+        <div data-ice="description">Create from adapter</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#static-method-createFromArray">createFromArray</a></span></span><span data-ice="signature">(blocks: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+        </p>
+      </div>
+      <div>
+        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
+        
+        <div data-ice="description">Build the mapBlock from array</div>
       </div>
     </td>
     <td>
@@ -134,7 +159,38 @@
 </tbody>
 </table>
 </div>
-
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(immutable: <span>*</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 <div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
@@ -151,13 +207,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#instance-method-getCharacterList">getCharacterList</a></span></span><span data-ice="signature">(): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-get">get</a></span></span><span data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Get the character list from immutable.</div>
+        
       </div>
     </td>
     <td>
@@ -176,13 +232,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#instance-method-getDepth">getDepth</a></span></span><span data-ice="signature">(): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-getImmutable">getImmutable</a></span></span><span data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Get the depth from immutable.</div>
+        <div data-ice="description">Get immutable for this blockMap</div>
       </div>
     </td>
     <td>
@@ -201,13 +257,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#instance-method-getKey">getKey</a></span></span><span data-ice="signature">(): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-getIn">getIn</a></span></span><span data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Get the key from the immutable.</div>
+        
       </div>
     </td>
     <td>
@@ -226,13 +282,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#instance-method-getText">getText</a></span></span><span data-ice="signature">(): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-remove">remove</a></span></span><span data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Get the text from immutable.</div>
+        
       </div>
     </td>
     <td>
@@ -251,13 +307,88 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/BlockState.js~BlockState.html#instance-method-getType">getType</a></span></span><span data-ice="signature">(): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-set">set</a></span></span><span data-ice="signature">()</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description">Get the type from the immutable.</div>
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-toArray">toArray</a></span></span><span data-ice="signature">(): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-toJS">toJS</a></span></span><span data-ice="signature">(): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/BlockMap.js~BlockMap.html#instance-method-toJSON">toJSON</a></span></span><span data-ice="signature">(): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
       </div>
     </td>
     <td>
@@ -281,18 +412,18 @@
     
     
     
-    <span data-ice="name">create</span><span data-ice="signature">(obj: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+    <span data-ice="name">create</span><span data-ice="signature">(adapter: <span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Create a new <code>BlockState</code>.</p>
+  <div data-ice="description"><p>Create from adapter</p>
 </div>
 
   
@@ -306,8 +437,8 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">obj</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="name" data-depth="0">adapter</td>
+      <td data-ice="type"><span><a href="class/lib/DataAdapter.js~DataAdapter.html">DataAdapter</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -320,8 +451,76 @@
     <h4>Return:</h4>
     <table>
       <tr>
+        <td class="return-type" data-ice="returnType"><span>*</span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-createFromArray">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    <span data-ice="name">createFromArray</span><span data-ice="signature">(blocks: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber76">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
+  
+  <div data-ice="description"><p>Build the mapBlock from array</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">blocks</td>
+      <td data-ice="type"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span><span>[]</span></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Array of object.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
         <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
-        <td class="return-desc" data-ice="returnDescription"><p><code>BlockState</code> object.</p>
+        <td class="return-desc" data-ice="returnDescription"><p><code>Immutable.OrderedMap</code> object.</p>
 </td>
       </tr>
     </table>
@@ -343,29 +542,137 @@
   
 </div>
 </div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">constructor</span><span data-ice="signature">(immutable: <span>*</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber11">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">immutable</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getCharacterList">
+  <h3 data-ice="anchor" id="instance-method-get">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">getCharacterList</span><span data-ice="signature">(): <span>*</span></span>
+    <span data-ice="name">get</span><span data-ice="signature">(): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get the character list from immutable.</p>
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span>*</span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getImmutable">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">getImmutable</span><span data-ice="signature">(): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber22">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get immutable for this blockMap</p>
 </div>
 
   
@@ -399,25 +706,24 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getDepth">
+  <h3 data-ice="anchor" id="instance-method-getIn">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">getDepth</span><span data-ice="signature">(): <span>*</span></span>
+    <span data-ice="name">getIn</span><span data-ice="signature">(): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get the depth from immutable.</p>
-</div>
+  
 
   
 
@@ -450,25 +756,24 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getKey">
+  <h3 data-ice="anchor" id="instance-method-remove">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">getKey</span><span data-ice="signature">(): <span>*</span></span>
+    <span data-ice="name">remove</span><span data-ice="signature">(): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get the key from the immutable.</p>
-</div>
+  
 
   
 
@@ -501,26 +806,64 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getText">
+  <h3 data-ice="anchor" id="instance-method-set">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">getText</span><span data-ice="signature">(): <span>*</span></span>
+    <span data-ice="name">set</span><span data-ice="signature">()</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get the text from immutable.
-The text is the content of the block.</p>
+  
+
+  
+
+  <div data-ice="properties">
 </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-toArray">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">toArray</span><span data-ice="signature">(): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber34">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
 
   
 
@@ -553,25 +896,74 @@ The text is the content of the block.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getType">
+  <h3 data-ice="anchor" id="instance-method-toJS">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">getType</span><span data-ice="signature">(): <span>*</span></span>
+    <span data-ice="name">toJS</span><span data-ice="signature">(): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/BlockState.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get the type from the immutable.</p>
+  
+
+  
+
+  <div data-ice="properties">
 </div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span>*</span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-toJSON">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">toJSON</span><span data-ice="signature">(): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/BlockMap.js.html#lineNumber30">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
 
   
 
