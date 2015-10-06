@@ -9,7 +9,7 @@ new WebpackDevServer(webpack(config), {
   quiet: false,
   noInfo: false,
   historyApiFallback: true
-}).listen(pkg.port, 'localhost', function (err, result) {
+}).listen(pkg.port, 'localhost', function (err) {
   if (err) {
     console.log(err);
   }

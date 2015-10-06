@@ -1,7 +1,41 @@
 {
   "blocks": [
-    { "text": "ljdlfjslj2jsdlfk", "type": 2, "depth": 0, "inlineStyleRanges": [{"offset": 2, "length": 5, "style": 1}, {"offset": 4, "length": 3, "style": 2}] },
-    { "text": "Hello World", "type": 2, "depth": 0 },
-    { "text": "This is normal plain text", "type": 0, "depth": 0}
-  ]
+    "ljdlfjslj2jsdlfk aadlfj lsdjfl sdlfjldsjflsdjf sldjf",
+    "Hello World sdjfl jlsdjfl jsldfjlsdjf lsjdflj sldfjls",
+    "This is normal plain text djfljdsfl jsl sldfj lsdjflsd"
+  ],
+  "block_types": [
+    2,
+    2,
+    0
+  ],
+  "block_depths": [
+    0,
+    0,
+    0
+  ],
+  "inline_styles": [
+    [{"offset": 2, "length": 5, "style": 1}, {"offset": 4, "length": 3, "style": 2}],
+    [{"offset": 3, "length": 3, "style": 2}],
+    []
+  ],
+  "entities": [
+    {},
+    {"offset": 3, "length": 5, "key": 0},
+    {"offset": 0, "length": 15, "key": 1}
+  ],
+  "entity_map": {
+    "0": {
+      "type": 1, 
+      "data": {
+        "url": "http://www.google.com"
+      }
+    },
+    "1": {
+      "type": 1,
+      "data": {
+        "url": "http://github.com"
+      }
+    }
+  }
 }

@@ -13,6 +13,9 @@ class App extends Component {
     super(props);
   }
 
+  componentDidMount () {
+  }
+
   render () {
     return (
       <Composer {...this.props} />
@@ -25,7 +28,7 @@ App.init = function () {
 
   $.get('/sandbox/data.json', function (d) {
     adapter.setData(d);
-    let editorState = EditorState.create(adapter.getBlocks());
+    let editorState = EditorState.create(adapter);
     window.$s = editorState;
     React.render(<App editorState={editorState} />, document.body);
   });
