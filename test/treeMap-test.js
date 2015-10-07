@@ -7,6 +7,8 @@ describe('Test TreeMap =>', () => {
   let treeMap;
   let blockMap;
   let adapter;
+  let key;
+  let tree;
 
   beforeEach(() => {
     blocks = [
@@ -19,6 +21,8 @@ describe('Test TreeMap =>', () => {
 
     blockMap = BlockMap.create(adapter);
     treeMap = TreeMap.createFromBlockMap(blockMap);
+    key = blockMap.getImmutable().first().get('key');
+    tree = treeMap.get(key);
   })
 
   it('`create` should work', () => {
@@ -28,9 +32,19 @@ describe('Test TreeMap =>', () => {
     expect(treeMap.getImmutable().first().first().get('leafs').first().get('end')).toEqual(blocks[0].length); 
   })
 
+  it('get item should work', () => {
+    expect(Object.prototype.toString.call(tree.toJS())).toBe("[object Array]");
+    // tree is a object [{leafs: {}}, {leafs: {}}]
+    expect(tree.getIn([0, 'leafs'])).not.toBe(undefined);
+  })
+
   it('`set` should work', () => {
-    let key = blockMap.getImmutable().first().get('key');
-    let tree = treeMap.get(key);
     expect(key).not.toBe(undefined);
+
+    let start = tree.getIn([0, 'leafs', 0, 'start']);
+    expect(start).toBe(0);
+
+    let dup = tree.setIn([0, 'leafs', 0, 'start'], 2);
+    expect(dup.getIn([0, 'leafs', 0, 'start'])).toBe(2);
   })
 })
