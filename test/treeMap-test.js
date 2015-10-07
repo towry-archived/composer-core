@@ -28,7 +28,9 @@ describe('Test TreeMap =>', () => {
     expect(treeMap.getImmutable().first().first().get('leafs').first().get('end')).toEqual(blocks[0].length); 
   })
 
-  xit('`set` should work', () => {
-    // let key = blockMap.getImmutable().first().get('key');
+  it('`set` should work', () => {
+    let key = blockMap.getImmutable().first().get('key');
+    let tree = treeMap.get(key);
+    expect(key).not.toBe(undefined);
   })
 })
