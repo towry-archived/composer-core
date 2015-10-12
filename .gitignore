@@ -4,3 +4,4 @@ bower_components/
 gh-pages/
 .DS_Store
 sandbox/bundle.js
+docs/
