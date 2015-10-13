@@ -8,6 +8,8 @@ import Composer from '../lib/components/Composer';
 import DataAdapter from '../lib/DataAdapter';
 import EditorState from '../lib/EditorState';
 
+import entityStore from './entityStore';
+
 class App extends Component {
   constructor (props) {
     super(props);
@@ -28,10 +30,12 @@ App.init = function () {
 
   $.get('/sandbox/data.json', function (d) {
     adapter.setData(d);
+    entityStore.setData(adapter.getEntityMap());
+
     let editorState = EditorState.create(adapter);
-    React.render(<App editorState={editorState} />, document.body);
+    React.render(<App entityMap={entityStore} editorState={editorState} />, document.body);
   });
-}
+};
 
 
 App.init();

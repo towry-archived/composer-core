@@ -15,3 +15,6 @@ npm test
 To build the doc, install `esdoc`: `npm i esdoc -g` then build the doc by running
 `npm run esdoc`.
 
+## TODO
+
+* Should make link standalone Component, make it pluggable.

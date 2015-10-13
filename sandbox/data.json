@@ -25,6 +25,7 @@
     [{"offset": 0, "length": 15, "key": 1}]
   ],
   "entity_map": {
+    "key": 1,
     "0": {
       "type": 1, 
       "data": {
