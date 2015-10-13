@@ -18,3 +18,4 @@ To build the doc, install `esdoc`: `npm i esdoc -g` then build the doc by runnin
 ## TODO
 
 * Should make link standalone Component, make it pluggable.
+* Add `shouldComponentUpdate`

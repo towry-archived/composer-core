@@ -1,0 +1,21 @@
+
+body {
+  color: #333;
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  line-height: 28px;
+  -webkit-font-smoothing: antialiased;
+}
+
+._RcmVh-link {
+  color: #33cd33;
+  cursor: pointer;
+}
+
+._RcmVh-bold {
+  font-weight: bold;
+}
+
+._RcmVh-italic {
+  font-style: italic;
+}

@@ -10,6 +10,8 @@ import EditorState from '../lib/EditorState';
 
 import entityStore from './entityStore';
 
+require('./style.css');
+
 class App extends Component {
   constructor (props) {
     super(props);
